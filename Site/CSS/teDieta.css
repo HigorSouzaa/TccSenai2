@@ -1,0 +1,545 @@
+
+/*/////////ico pessoa///////////////////////*/
+
+
+html,body {
+    font-family: OCR A Std, monospace;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: auto;
+    margin: 20px;
+  
+    
+  }
+  
+  body{
+  
+    border: 0px solid black;
+    border-radius: 60px;
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.1);
+   padding: 10px;
+   margin: 180px;
+   margin-top: 10px;
+  
+   background-color: #F2F0FA;
+  }
+  
+  html{
+    margin-bottom: 100px;
+    background-color: #E6E3F6;
+  
+  }
+  .content {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    margin: 0;
+    align-items: center;
+    background-color: #F2F0FA;
+    border-radius: 60px;
+  }
+  
+  .list-menu {
+  
+    display: flex;
+    align-items: center;
+    list-style: none; /* Remove os marcadores padrão */
+  }
+  
+  .list-menu a {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: #B5B2C6;
+    font-family: OCR A Std, monospace;
+    font-size: 35px;
+    border-radius: 10px;
+  }
+  
+  .content .list-menu li a:hover {
+      
+      
+    transition: 1.0s ease;
+    color: #9e9bad;
+    
+  }
+  
+  .ico-pessoa {
+    position: relative; /* Necessário para o posicionamento do menu suspenso */
+  }
+  
+  .dropdown-menu {
+    display: none; /* Oculta o menu por padrão */
+    position: absolute;
+    top: 100%; /* Posiciona abaixo do ícone */
+    left: 50px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+    width: 90px;
+    
+  }
+  
+  .dropdown-menu button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(139, 130, 130);
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin: 0;
+    transition: background-color 0.3s;
+    font-family: OCR A Std, monospace; 
+    
+  }
+  
+  .dropdown-menu button:hover {
+    background-color: #83aedb;
+   
+  }
+  
+  .show-menu .dropdown-menu {
+    display: block; /* Mostra o menu quando a classe 'show-menu' está ativa */
+  }
+  
+  /*///////////////fim ico pessoa///////////////*/
+    
+    .content h1 {
+      position: relative; /* Ou absolute, fixed, etc. */
+      top: 20px; /* Ajusta a posição vertical */
+      left: 40px; /* Ajusta a posição horizontal */
+      color: #B5B2C6;
+      font-family: OCR A Std, monospace; /*font do H1*/
+  font-size: 45px;
+  width: 100%;
+    }
+  
+    .content img{
+      position: relative;
+      top: 20px;
+      left: 30px;
+      height: 90px;
+  
+    }
+  
+  
+   /*//////////////////Fim do menu//////////////*/
+  
+   /*///////////// Conteúdo //////////////*/
+
+   .cont{
+
+display: grid;
+grid-template-columns: repeat(2, 1fr); /* 3 colunas de largura igual */
+
+   }
+  
+  .parteA{
+
+height: 200px;
+
+  }
+
+   .cont h1{
+    position: relative;
+    top: 120px;
+    left: 30px;
+      
+    
+    font-size: 45px;
+    color: #9f9db0;
+    margin: 0;
+    margin-bottom: 50px;
+    
+    font-family: OCR A Std, monospace;
+    
+     }
+
+     /*////////////////////////Bloco 1///////////////////*/
+
+     label[for="newRefeicao"]{
+
+      position: relative;
+      top: 0px;
+      left: 20px;
+  
+
+        font-size: 28px;
+        color: #9f9db0;
+        margin: 0;
+        
+        
+        font-family: OCR A Std, monospace;
+     }
+     .bloco1{
+
+      display: grid;
+      grid-template-columns: repeat(1, 1fr); /* 3 colunas de largura igual */
+      
+      grid-column: 1;
+
+     }
+  
+     .bloco1 input{
+
+   
+
+      position: relative;
+      top: 20px;
+      left: 20px;
+
+        width: 450px;
+        height: 30px;
+        background-color: white;
+        color: #B5B2C6;
+        border: none;
+        border-radius: 10px;
+        font-size: 20px;
+        font-family: OCR A Std, monospace;
+        outline: none; /* Remove a borda ao clicar */
+
+        }
+     
+        #newRefeicao::placeholder{
+
+            color: #B5B2C6;
+            position: relative;
+            left: 10px;
+        }
+
+        #newRefeicaoB{
+
+          position: relative;
+          top: 30px;
+          left: 20px;
+          
+      background-color: white;
+      border-radius: 10px;
+      border: none;
+      height: 330px;
+      width: 450px;
+      color: #9f9db0;
+      font-family: OCR A Std, monospace;
+      resize: none; /* Impede o redimensionamento */
+      outline: none; /* Remove a borda ao clicar */
+
+        }
+
+        label[for="restricao"] {
+
+          position: relative;
+          top: 30px;
+          left: 20px;
+          color: #9f9db0;
+          font-family: OCR A Std, monospace;
+          font-size: 20px;
+
+        }
+
+        /*botão sim e não*/
+
+        button#sim{
+
+position: relative;
+top: 200px;
+left: 50px;
+
+background-color: white;
+width: 40px;
+height: 40px;
+border-radius: 50%; 
+border: none;
+box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        button#sim p{
+
+          margin: 0;
+          position: relative;
+          left: 39px;
+          font-size: 20px;
+          color: #9f9db0;
+          font-family: OCR A Std, monospace;
+
+        }
+
+        button#nao{
+
+          position: relative;
+          top: 230px;
+          left: 190px;
+          
+          background-color: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%; 
+          border: none;
+          box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+                  }
+          
+                  
+                  button#nao p{
+          
+                    margin: 0;
+                    position: relative;
+                    left: 41px;
+                    font-size: 20px;
+                    color: #9f9db0;
+                    font-family: OCR A Std, monospace;
+          
+                  }
+  
+   /*////////////////Bloco 1 fim //////////////////////*/
+
+/*////////////////////////Bloco 2///////////////////*/
+
+   label[for="newRestricao"]{
+
+    position: relative;
+    top: 0px;
+    left: 0px;
+
+    font-size: 28px;
+    color: #9f9db0;
+    margin: 0;
+    
+    
+    font-family: OCR A Std, monospace;
+ }
+ .bloco2{
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* 3 colunas de largura igual */
+  grid-column: 2;
+
+ 
+  
+
+ }
+
+ .bloco2 input{
+
+
+
+    position: relative;
+    top: 0px;
+    left: 0px;
+
+    width: 450px;
+    height: 30px;
+    background-color: white;
+    color: #B5B2C6;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: OCR A Std, monospace;
+    outline: none; /* Remove a borda ao clicar */
+
+    }
+ 
+    #newRestricao::placeholder{
+
+        color: #B5B2C6;
+        position: relative;
+        left: 10px;
+    }
+
+    #newRestricaoB{
+
+      position: relative;
+      top: 0px;
+      left: 0px;
+      
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+  height: 330px;
+  width: 450px;
+  color: #9f9db0;
+  font-family: OCR A Std, monospace;
+  resize: none; /* Impede o redimensionamento */
+  outline: none; /* Remove a borda ao clicar */
+
+    }
+
+
+/*////////////////Bloco 2 fim //////////////////////*/
+  
+    
+  /*//////////////////////////// Parte que deixa responsivo/////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////*/
+  
+  
+  @media (max-width: 768px) {
+    /* Estilos para telas menores que 768px de largura */
+  
+    
+  /*/////////ico pessoa///////////////////////*/
+  
+  
+  html,body {
+    font-family: OCR A Std, monospace;
+    margin: 0;
+    padding: 0;
+    height:auto;
+    width: auto;
+    margin: 20px;
+  
+    
+  }
+  
+  body{
+  
+    border: 0px solid black;
+    border-radius: 60px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   padding: 10px;
+   margin: 10px;
+   margin-top: 10px;
+   height: 900px;
+  width:400px ;
+   background-color: #F2F0FA;
+  }
+  
+  html{
+    margin-bottom: 100px;
+    background-color: #E6E3F6;
+  
+  }
+  .content {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    margin: 0;
+    align-items: center;
+    background-color: #F2F0FA;
+    border-radius: 60px;
+  }
+  
+  .list-menu {
+  
+    display: flex;
+    align-items: center;
+    list-style: none; /* Remove os marcadores padrão */
+  }
+  
+  .list-menu a {
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: #B5B2C6;
+    font-family: OCR A Std, monospace;
+    font-size: 20px;
+    
+  }
+  
+  .content .list-menu li a:hover {
+      
+      
+    transition: 1.0s ease;
+    color: #9e9bad;
+    
+  }
+  
+  .ico-pessoa {
+    position: relative; /* Necessário para o posicionamento do menu suspenso */
+  }
+  
+  .dropdown-menu {
+    display: none; /* Oculta o menu por padrão */
+    position: absolute;
+    top: 100%; /* Posiciona abaixo do ícone */
+    left: 0px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+    width: 70px;
+    
+  }
+  
+  .dropdown-menu button {
+    display: block;
+    width: 100%;
+    height: 30px;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(139, 130, 130);
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin: 0;
+    transition: background-color 0.3s;
+    font-family: OCR A Std, monospace; 
+    
+  }
+  
+  .dropdown-menu button:hover {
+    background-color: #83aedb;
+   
+  }
+  
+  .show-menu .dropdown-menu {
+    display: block; /* Mostra o menu quando a classe 'show-menu' está ativa */
+  }
+  
+  /*///////////////fim ico pessoa///////////////*/
+    
+    .content h1 {
+      position: relative; /* Ou absolute, fixed, etc. */
+      top: 2px; /* Ajusta a posição vertical */
+      left: 25px; /* Ajusta a posição horizontal */
+      color: #B5B2C6;
+      font-family: OCR A Std, monospace; /*font do H1*/
+  font-size: 15px;
+  width: 100%;
+    }
+  
+    .content img{
+      position: relative;
+      top: 5px;
+      left: 20px;
+      height: 60px;
+  
+    }
+  
+  
+   /*//////////////////Fim do menu//////////////*/
+  
+   /*///////////// Conteúdo //////////////*/
+  
+   .cont h1{
+    position: relative;
+    top: 45px;
+    
+    font-size: 35px;
+    color: #B5B2C6;
+    margin: 0;
+    margin-bottom: 50px;
+    
+    font-family: OCR A Std, monospace;
+    
+     }
+    
+  /* fim da Parte que deixa responsivo*/
+  
+  
+  
+  }

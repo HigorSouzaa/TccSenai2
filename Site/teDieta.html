@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas Culinárias</title>
+    <link rel="stylesheet" href="CSS/teDieta.css">
+    <link rel="icon" href="../4Sprint/img/LogoHeader.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="content">
+            <img src="img/LogoHeader.png" alt="logo">
+            <h1> Ia Health Fit</h1>
+            <ul class="list-menu">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li class="ico-pessoa">
+                    <a href="#" onclick="toggleMenu(event)">
+                        <span class="ico-holder"><span class="fas fa-user"></span></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <button onclick="location.href = 'pgLogin.html'">Login</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="cont">
+        <div class="parteA">
+            <h1>Olá, Breno</h1>
+        </div>
+            <div class="bloco1">
+
+                <label for="newRefeicao">Diga o que você tem em casa:</label>
+
+                <input type="text" id="newRefeicao" placeholder="Escreva aqui">
+                <textarea id="newRefeicaoB" rows="10"></textarea>
+
+                <label for="restricao">Tem restrição a algum alimento?</label>
+
+                <button type="submit" id="sim"><p>Sim</p></button>
+                <button type="submit" id="nao"><p>Não</p></button>
+
+            </div>
+
+            <div class="bloco2">
+
+                <label for="newRestricao">Se sim, qual?</label>
+
+                <input type="text" id="newRestricao" placeholder="Escreva aqui">
+                <textarea id="newRestricaoB" rows="10"></textarea>
+
+            
+
+            </div>
+          
+    
+            
+
+            </div>
+    <footer>
+        <!-- Adicione conteúdo do footer se necessário -->
+    </footer>
+
+    <script src="JS/teDieta.js"></script>
+</body>
+</html>

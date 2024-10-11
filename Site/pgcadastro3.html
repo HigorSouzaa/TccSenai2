@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas Culinárias</title>
+    <link rel="stylesheet" href="CSS/paginaCadastro3.css">
+
+
+    <!-- icon do site-->
+    <link rel="icon" href="../4Sprint/img/LogoHeader.png" type="image/png">
+
+    <!--ico pessoa-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <div class="content">
+            <img src="img/LogoHeader.png" id="logo" alt="logo">
+            <h1> Ia Health Fit</h1>
+            <ul class="list-menu">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li class="ico-pessoa">
+                    <a href="#" onclick="toggleMenu(event)">
+                        <span class="ico-holder"><span class="fas fa-user"></span></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <button onclick="location.href = 'pgLogin.html' ">Login</button>
+                       
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Conteúdo -->
+    <div class="cont">
+
+        <div class="parteA">
+
+            <form> 
+
+                <hr>
+
+                <label for="sexo">Sexo:</label>
+
+                <div class="input-group">
+                   
+                    <div class="dropdown">
+                        <select id="sexo-select" name="sexo-opcoes">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <div class="dropdown-arrow"></div>
+                    </div>
+                </div>
+
+
+                <label for="objetivo">Objetivo:</label>
+        
+                <div class="input-group">
+                    
+                    <div class="dropdown">
+                        <select id="objetivo-select" name="objetivo-opcoes">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="perder-peso">Perder Peso</option>
+                            <option value="ganhar-musculo">Ganhar Músculo</option>
+                            <option value="manter">Manter</option>
+                        </select>
+                        <div class="dropdown-arrow"></div>
+                    </div>
+                </div>
+
+
+                <label for="balanca">Tem balança:</label>
+
+                <div class="input-group">
+                
+                    <div class="dropdown">
+                        <select id="balanca-select" name="balanca-opcoes">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                        <div class="dropdown-arrow"></div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="container-img">
+
+            <img src="img/telaLogin.png" id="imagemMeio" alt="meio">
+        
+        </div>
+
+
+        </div>
+
+        <button class="imagemPross" onclick="location.href = 'pgCadastro2.html'">
+            <img src="img/prosseguir.png" id="imagemPross" alt="prosseguir">
+        </button>
+
+    </div>
+    
+ <!-- Fim Conteúdo -->
+
+ 
+
+    <script src="JS/pgCadastro3.js"></script>
+</body>
+</html>

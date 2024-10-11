@@ -1,0 +1,837 @@
+html,body {
+    font-family: OCR A Std, monospace;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: auto;
+    margin: 20px;
+  
+    
+  }
+  
+  body{
+  
+    border: 0px solid black;
+    border-radius: 60px;
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.1);
+   padding: 10px;
+   margin: 180px;
+   margin-top: 10px;
+  
+   background-color: #F2F0FA;
+  }
+  
+  html{
+    margin-bottom: 100px;
+    background-color: #E6E3F6;
+  
+  }
+  .content {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    margin: 0;
+    align-items: center;
+    background-color: #F2F0FA;
+    border-radius: 60px;
+
+    position: relative;
+    top: 60px;
+
+  }
+  
+  .list-menu {
+  
+    display: flex;
+    align-items: center;
+    list-style: none; /* Remove os marcadores padrão */
+  }
+  
+  .list-menu a {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: #B5B2C6;
+    font-family: OCR A Std, monospace;
+    font-size: 35px;
+    border-radius: 10px;
+  }
+  
+  .content .list-menu li a:hover {
+      
+      
+    transition: 1.0s ease;
+    color: #9e9bad;
+    
+  }
+
+  .content h1 {
+    position: relative; /* Ou absolute, fixed, etc. */
+    top: 20px; /* Ajusta a posição vertical */
+    left: 40px; /* Ajusta a posição horizontal */
+    color: #B5B2C6;
+    font-family: OCR A Std, monospace; /*font do H1*/
+font-size: 45px;
+width: 100%;
+  }
+
+  .content img{
+    position: relative;
+    top: 20px;
+    left: 30px;
+    height: 90px;
+
+  }
+
+  a#mConta{
+    color: #a498e7;
+    background-color: rgb(110, 110, 120);
+    width: 320px;
+    height: 80px;
+    width: 340px;
+    border: 0px solid black ;
+    border-radius: 100px;
+    margin-right:100px ;
+    
+  }
+
+  
+  a#mConta p{
+    color: black;
+margin: 0;
+font-size: 40px;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+border: 1px solid #F2F0FA;
+text-align: center;
+background-color: white;
+position: relative;
+top: 0px;
+left: 10px;
+
+  }
+
+  hr{
+position: relative;
+top: 100px;
+        
+border: 1px transparent #908d9c; /* Cor e espessura da linha */
+width: 1400px; /* Faz o <hr> ocupar toda a largura disponível */
+        
+    
+    }
+
+.parteA{
+
+  display: flex;
+  flex-direction: row;
+
+  position: relative;
+  top: 50px;
+  left: 30px;
+
+  height: 250px;
+}
+
+.circulo{
+
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+border: 6px solid #a498e7;;
+
+background-color: white;
+
+}
+
+.cont h1{
+  position: relative;
+  top: 32px;
+  left: 30px;
+  color: #B5B2C6;
+  font-size: 50px;
+
+}
+
+.cont{
+
+  height: 750px;
+ 
+  display: grid;
+
+grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+grid-template-rows: repeat(2, 100px); /* 2 linhas */
+
+
+position: relative;
+top: 100px;
+
+
+
+}
+
+.conteudo{
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  grid-template-rows: repeat(2, 100px); /* 2 linhas */
+
+  position: relative;
+  top: 30px;
+
+}
+
+.bloco1 h1{
+
+  color: white;
+  font-size: 40px;
+
+  position: relative;
+  top: 50px;
+
+
+}
+
+.bloco1 hr{
+position: relative;
+top: 30px;
+
+margin-left: 30px;
+width: 700px;
+
+
+}
+
+.bloco1{
+
+  position: relative;
+  top: 220px;
+  left: 30px;
+  
+  grid-column: 1; grid-row: 2;
+  
+  height: 380px;
+  width: 800px;
+  background-color: #d5d1e7;
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+}
+
+/*parte do nome*/
+.nome{
+
+  position: relative;
+  left: 30px;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  grid-template-rows: repeat(2, 50px); /* 2 linhas */
+
+  color: white;
+  height: 100px;
+  width: 350px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+}
+
+.nome h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 20px;
+  color: #a498e7;
+  
+
+}
+
+.nome p{
+
+  grid-column: 1; grid-row: 2;
+
+  position: relative;
+  left: 20px;
+  font-size: 20px;
+
+}
+
+/*icone lapis Nome*/
+
+/*icone de lapis que permite alterar*/
+.icon-lapisN {
+  position: relative;
+  top: 0px;
+  background: none;
+  border: none;
+  color: #ffffff; /* Cor do lápis */
+  cursor: pointer; /* Altera o cursor ao passar o mouse */
+  transition: color 0.3s; /* Animação suave ao alterar a cor */
+}
+.icon-lapisN:hover {
+  color: #2980b9; /* Cor ao passar o mouse */
+}
+
+.nome-input {
+ 
+  display: none; /* Inicialmente oculto */
+  margin-top: 10px;
+
+}
+
+input#newNome{
+  outline: none;
+  width: 120px;
+color: white;
+border: none;
+
+background-color:  rgb(10, 10, 85);
+border-bottom: 1px solid rgb(255, 255, 255);
+
+}
+
+
+button#saveNome{
+
+
+  position: absolute;
+  top: 60px;
+  left: 135px;
+
+  
+  border: none;
+  background-color:  rgb(10, 10, 85);
+}
+
+
+/*parte do gênero*/
+
+.sexo{
+
+  position: relative;
+  left: 40px;
+
+  color: white;
+  height: 100px;
+  width: 350px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+}
+
+.sexo h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 30px;
+  color: #a498e7;
+
+}
+
+.input-group{
+
+  margin-top: 20px;
+}
+
+#cpf{
+
+  width: 170px;
+  color: white;
+  background-color:  rgb(10, 10, 85);
+position: absolute;
+top: 70px;
+left: 80px;
+
+outline: none; /* Remove a borda de foco */
+border: none;
+border-bottom: 1px solid white;
+}
+
+#cpf::placeholder{
+
+  color: white;
+
+}
+
+#saveCP{
+
+
+  position: absolute;
+  top: 70px;
+  left: 275px;
+
+  border: none;
+  background-color: rgb(10, 10, 85);
+
+}
+
+select#balanca-select{
+  appearance: none; /* Remove a aparência padrão */
+ background: url('../img/Vector.png') no-repeat right center; /* Imagem da seta à direita */
+  margin-left: 20px;
+  color: white;
+  background-color:  rgb(10, 10, 85);
+  border: none;
+  font-family: OCR A Std, monospace; /*font do H1*/
+  font-size: 20px;
+
+  background-size: 12px; /* Tamanho da seta */
+  padding: 10px 30px 10px 10px; /* Espaço para a seta e texto */
+  border-radius: 4px; /* Bordas arredondadas */
+ 
+
+
+
+}
+
+/*parte da dataN*/
+.dataN{
+
+  position: relative;
+  top: 10px;
+  left: 30px;
+
+
+  color: white;
+  height: 100px;
+  width: 350px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+}
+
+.dataN h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 30px;
+  color: #a498e7;
+  
+
+}
+
+.dataN p{
+
+  position: relative;
+  left: 20px;
+  font-size: 20px;
+
+}
+
+/*parte do E-mail*/
+.email{
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  grid-template-rows: repeat(2, 50px); /* 2 linhas */
+
+  position: relative;
+  top: 10px;
+  left: 40px;
+
+
+  color: white;
+  height: 100px;
+  width: 350px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+}
+
+.email h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 30px;
+  color: #a498e7;
+ 
+
+}
+
+.email p{
+
+  grid-column: 1; grid-row: 2;
+
+  position: relative;
+  left: 20px;
+  font-size: 20px;
+  
+}
+
+/*icone de lapis que permite alterar*/
+.icon-lapis {
+  position: relative;
+  top: 0px;
+  background: none;
+  border: none;
+  color: #ffffff; /* Cor do lápis */
+  cursor: pointer; /* Altera o cursor ao passar o mouse */
+  transition: color 0.3s; /* Animação suave ao alterar a cor */
+}
+.icon-lapis:hover {
+  color: #2980b9; /* Cor ao passar o mouse */
+}
+
+/*icone lapis E-mail*/
+.email-input {
+ 
+  display: none; /* Inicialmente oculto */
+  margin-top: 10px;
+
+}
+
+input#newEmail{
+  outline: none;
+  width: 120px;
+  position: relative;
+  left: 20px;
+color: white;
+border: none;
+
+background-color:  rgb(10, 10, 85);
+border-bottom: 1px solid rgb(255, 255, 255);
+
+}
+
+
+
+button#saveEmail{
+
+
+  position: absolute;
+  top: 60px;
+  left: 160px;
+
+  
+  border: none;
+  background-color:  rgb(10, 10, 85);
+}
+
+/*//////////////////Bloco 2///////////////////*/
+
+.bloco2{
+
+
+  grid-column: 2; grid-row: 2;
+
+  position: relative;
+  top:  220px;
+  left: 70px;
+  
+  height: 380px;
+  width: 600px;
+  background-color: #a498e7;
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+}
+
+/*parte do idioma*/
+
+.idiomas{
+
+  position: relative;
+  top: 20px;
+  left: 25px;
+
+
+  color: white;
+  height: 100px;
+  width: 540px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+}
+
+.idiomas h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 30px;
+  color: #a498e7;
+
+}
+
+.dietas{
+
+  position: relative;
+  top: 40px;
+  left: 25px;
+
+  color: white;
+  height: 100px;
+  width: 540px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+
+}
+
+.dietas h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 30px;
+  color: #a498e7;
+
+}
+
+.perfil{
+
+  position: relative;
+  top: 60px;
+  left: 25px;
+
+  color: white;
+  height: 100px;
+  width: 540px;
+  background-color:  rgb(10, 10, 85);
+
+  border: 0px solid transparent;
+  border-radius: 15px;
+
+
+}
+
+.perfil h1{
+
+  position: relative;
+  left: 20px;
+  top: 10px;
+  margin: 0;
+  font-size: 30px;
+  color: #a498e7;
+
+}
+
+  /*//////////////////////////// Parte que deixa responsivo/////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////*/
+  
+  
+  @media (max-width: 768px) {
+    /* Estilos para telas menores que 768px de largura */
+  
+    html,body {
+      font-family: OCR A Std, monospace;
+      margin: 0;
+      padding: 0;
+      height: auto;
+     
+      width: auto;
+      margin: 20px;
+    
+      
+    }
+    
+    body{
+    
+      border: 0px solid black;
+      border-radius: 60px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     padding: 10px;
+     margin: 10px;
+     margin-top: 10px;
+     height: 1600px;
+    width:400px ;
+     background-color: #F2F0FA;
+    }
+    
+    html{
+      margin-bottom: 100px;
+      background-color: #E6E3F6;
+    
+    }
+
+    .list-menu a {
+      width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none; /* Remove o sublinhado do link */
+      color: #B5B2C6;
+      font-family: OCR A Std, monospace;
+      font-size: 20px;
+      
+    }
+
+    .content h1 {
+      position: relative; /* Ou absolute, fixed, etc. */
+      top: 2px; /* Ajusta a posição vertical */
+      left: 25px; /* Ajusta a posição horizontal */
+      color: #B5B2C6;
+      font-family: OCR A Std, monospace; /*font do H1*/
+  font-size: 15px;
+  width: 100%;
+    }
+
+    .content img{
+      position: relative;
+      top: 5px;
+      left: 20px;
+      height: 60px;
+  
+    }
+
+    .cont{
+
+      display: flex;
+      flex-direction: column;
+
+      height: 1400px;
+      
+    }
+
+       .container-img img{
+
+        height: 300px;
+        width: 300px;
+        position: absolute;
+        top: 250px;
+        left: 70px;
+
+       }
+
+       /*Botão de sair da minha conta*/
+
+       a#mConta{
+        color: #a498e7;
+        background-color: rgb(110, 110, 120);
+        width: 170px;
+        height: 80px;
+        
+        border: 0px solid black ;
+        border-radius: 100px;
+        margin-right:100px ;
+        text-align: center;
+      }
+    
+      
+      a#mConta p{
+        color: black;
+    margin: 0;
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #F2F0FA;
+    
+    background-color: white;
+    position: relative;
+    top: 0px;
+    left: 10px;
+}     
+
+.bloco1{
+
+  position: relative;
+  top: 100px;
+  left:30px ;
+
+  height: 620px;
+
+
+
+}
+
+.conteudo{
+
+ display: flex;
+ flex-direction: column;
+ gap: 10px;/* Espaço entre os itens */
+
+}
+
+.sexo{
+
+  position: relative;
+  left: 30px;
+
+}
+
+.dataN{
+
+  position: relative;
+  left: 30px;
+
+}
+
+.email{
+
+  position: relative;
+  left: 30px;
+
+}
+
+
+.bloco2{
+
+  position: relative;
+  top: 150px;
+  left:30px ;
+  width: 340px;
+  
+
+  background-color: #a498e7;
+
+}
+
+.idiomas{
+
+  width: 290px;
+
+}
+
+.dietas{
+
+  
+  width: 290px;
+
+}
+
+.perfil{
+
+  
+  width: 290px;
+
+}
+
+select#balanca-select{
+
+font-size: 13px;
+
+}
+
+  }

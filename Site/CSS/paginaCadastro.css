@@ -1,0 +1,536 @@
+
+/*/////////ico pessoa///////////////////////*/
+
+
+html,body {
+  font-family: OCR A Std, monospace;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: auto;
+  margin: 20px;
+
+  
+}
+
+body{
+
+  border: 0px solid black;
+  border-radius: 60px;
+  box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.1);
+ padding: 10px;
+ margin: 180px;
+ margin-top: 10px;
+
+ background-color: #F2F0FA;
+}
+
+html{
+  margin-bottom: 100px;
+  background-color: #E6E3F6;
+
+}
+.content {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  background-color: #F2F0FA;
+  border-radius: 60px;
+}
+
+.list-menu {
+
+  display: flex;
+  align-items: center;
+  list-style: none; /* Remove os marcadores padrão */
+}
+
+.list-menu a {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove o sublinhado do link */
+  color: #B5B2C6;
+  font-family: OCR A Std, monospace;
+  font-size: 35px;
+  border-radius: 10px;
+}
+
+.content .list-menu li a:hover {
+    
+    
+  transition: 1.0s ease;
+  color: #9e9bad;
+  
+}
+
+.ico-pessoa {
+  position: relative; /* Necessário para o posicionamento do menu suspenso */
+}
+
+.dropdown-menu {
+  display: none; /* Oculta o menu por padrão */
+  position: absolute;
+  top: 100%; /* Posiciona abaixo do ícone */
+  left: 50px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+  width: 90px;
+  
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: #ffffff;
+  color: rgb(139, 130, 130);
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+  margin: 0;
+  transition: background-color 0.3s;
+  font-family: OCR A Std, monospace; 
+  
+}
+
+.dropdown-menu button:hover {
+  background-color: #83aedb;
+ 
+}
+
+.show-menu .dropdown-menu {
+  display: block; /* Mostra o menu quando a classe 'show-menu' está ativa */
+}
+
+/*///////////////fim ico pessoa///////////////*/
+  
+  .content h1 {
+    position: relative; /* Ou absolute, fixed, etc. */
+    top: 20px; /* Ajusta a posição vertical */
+    left: 40px; /* Ajusta a posição horizontal */
+    color: #B5B2C6;
+    font-family: OCR A Std, monospace; /*font do H1*/
+font-size: 45px;
+width: 100%;
+  }
+
+  .content img{
+    position: relative;
+    top: 20px;
+    left: 30px;
+    height: 90px;
+
+  }
+
+
+ /*//////////////////Fim do menu//////////////*/
+
+ /*///////////// Conteúdo //////////////*/
+
+ .cont pre{
+position: relative;
+top: 65px;
+font-size: 45px;
+color: #B5B2C6;
+margin: 0;
+margin-bottom: 50px;
+
+font-family: OCR A Std, monospace;
+
+ }
+
+ .cont h1{
+  position: relative;
+  top: 120px;
+  left: 23px;
+  
+  font-size: 45px;
+  color: #B5B2C6;
+  margin: 0;
+  margin-bottom: 50px;
+  
+  font-family: OCR A Std, monospace;
+  
+   }
+
+ form#registrationForm{
+
+  display: flex;
+  flex-direction: column; /* Alinha os itens verticalmente */
+width: 200px;
+color:#B5B2C6 ;
+font-size: 40px;
+font-family: OCR A Std, monospace;
+
+position: relative;
+top: 130px;
+left: 0px;
+
+ }
+
+ form#registrationForm input {
+
+  margin-bottom: 0px;   
+  font-size: 25px;
+  font-family: OCR A Std, monospace;
+   
+  border-radius: 10px;
+  
+ }
+
+ form#registrationForm input::placeholder { /*escrita do input*/
+
+  font-size: 20px;
+  color: #B5B2C6;
+  
+ }
+ 
+
+input#email{
+
+  border: none;
+  outline: none; /* Remove o contorno de foco padrão */
+  
+
+}
+
+ input#email:hover{
+
+  border: none;
+  outline: none; /* Remove o contorno de foco padrão */
+  border-bottom: 2px solid #ada3a3;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+
+ }
+
+ input#senha{
+  border: none;
+  outline: none; /* Remove o contorno de foco padrão */
+
+ }
+
+ input#senha:hover{
+
+  border: none;
+  outline: none; /* Remove o contorno de foco padrão */
+  border-bottom: 2px  solid #ada3a3;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+
+ }
+
+ /*Serve para diminuir os espaçamentos entre os inputs,
+ os <p> de erro acabam mudando o tamanho dos espaçamentos*/
+ p#email-error-message{
+font-size: 22px;
+ }
+
+   /*Botão cadastrar*/
+   button[id="Cadastrar"] {
+    position: relative;
+    left: 20px;
+    font-size: 25px;
+ background-color: white;
+   border: none;
+   border-radius: 100px;
+   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    height: 40px;
+    width: 160px;
+    
+    font-family: OCR A Std, monospace;
+   
+  }
+  
+  button[id = "Cadastrar"]:hover {
+  
+  background-color:#ada3a3 ;
+  transition: background-color 1.5s ease;
+  
+  }
+
+/*img da tela principal*/
+.cont{
+
+  display: flex;
+ 
+
+}
+
+.container-img img{
+
+  position: relative;
+top: 20px;
+left: 90px ;
+height: 750px;
+}
+
+
+  .parteA{
+
+    position: relative;
+
+  left: 50px;
+
+  }
+
+  
+/*//////////////////////////// Parte que deixa responsivo/////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////*/
+
+
+@media (max-width: 768px) {
+  /* Estilos para telas menores que 768px de largura */
+
+  
+/*/////////ico pessoa///////////////////////*/
+
+
+html,body {
+  font-family: OCR A Std, monospace;
+  margin: 0;
+  padding: 0;
+  height:auto;
+  width: auto;
+  margin: 20px;
+
+  
+}
+
+body{
+
+  border: 0px solid black;
+  border-radius: 60px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ padding: 10px;
+ margin: 10px;
+ margin-top: 10px;
+ height: 900px;
+width:400px ;
+ background-color: #F2F0FA;
+}
+
+html{
+  margin-bottom: 100px;
+  background-color: #E6E3F6;
+
+}
+.content {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  background-color: #F2F0FA;
+  border-radius: 60px;
+}
+
+.list-menu {
+
+  display: flex;
+  align-items: center;
+  list-style: none; /* Remove os marcadores padrão */
+}
+
+.list-menu a {
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove o sublinhado do link */
+  color: #B5B2C6;
+  font-family: OCR A Std, monospace;
+  font-size: 20px;
+  
+}
+
+.content .list-menu li a:hover {
+    
+    
+  transition: 1.0s ease;
+  color: #9e9bad;
+  
+}
+
+.ico-pessoa {
+  position: relative; /* Necessário para o posicionamento do menu suspenso */
+}
+
+.dropdown-menu {
+  display: none; /* Oculta o menu por padrão */
+  position: absolute;
+  top: 100%; /* Posiciona abaixo do ícone */
+  left: 0px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+  width: 70px;
+  
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  height: 30px;
+  border: none;
+  background-color: #ffffff;
+  color: rgb(139, 130, 130);
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+  margin: 0;
+  transition: background-color 0.3s;
+  font-family: OCR A Std, monospace; 
+  
+}
+
+.dropdown-menu button:hover {
+  background-color: #83aedb;
+ 
+}
+
+.show-menu .dropdown-menu {
+  display: block; /* Mostra o menu quando a classe 'show-menu' está ativa */
+}
+
+/*///////////////fim ico pessoa///////////////*/
+  
+  .content h1 {
+    position: relative; /* Ou absolute, fixed, etc. */
+    top: 2px; /* Ajusta a posição vertical */
+    left: 25px; /* Ajusta a posição horizontal */
+    color: #B5B2C6;
+    font-family: OCR A Std, monospace; /*font do H1*/
+font-size: 15px;
+width: 100%;
+  }
+
+  .content img{
+    position: relative;
+    top: 5px;
+    left: 20px;
+    height: 60px;
+
+  }
+
+
+ /*//////////////////Fim do menu//////////////*/
+
+ /*///////////// Conteúdo //////////////*/
+
+ .cont h1{
+  position: relative;
+  top: 45px;
+  
+  font-size: 35px;
+  color: #B5B2C6;
+  margin: 0;
+  margin-bottom: 50px;
+  
+  font-family: OCR A Std, monospace;
+  
+   }
+
+ .cont pre{
+position: relative;
+top: 0px;
+
+font-size: 35px;
+color: #B5B2C6;
+margin: 0;
+margin-bottom: 50px;
+
+font-family: OCR A Std, monospace;
+
+ }
+ 
+
+ form{
+
+  display: flex;
+  flex-direction: column; /* Alinha os itens verticalmente */
+width: 200px;
+color:#B5B2C6 ;
+font-size: 30px;
+font-family: OCR A Std, monospace;
+
+position: relative;
+top: 200px;
+left: 0px;
+
+ }
+
+ form input {
+
+  margin-bottom: 30px;   
+  font-size: 25px;
+  font-family: OCR A Std, monospace;
+   
+  border-radius: 10px;
+  
+ }
+
+ form input::placeholder { /*escrita do input*/
+
+  font-size: 20px;
+  color: #B5B2C6;
+  
+ }
+ 
+
+
+
+ /*Botão cadastrar*/
+ button[name="Cadastrar"] {
+  position: relative;
+  left: 20px;
+
+  
+  border-radius: 60px;
+  height: 40px;
+  width: 160px;
+ 
+}
+
+button[name = "Cadastrar"]:hover {
+
+background-color:#ada3a3 ;
+transition: background-color 1.5s ease;
+
+}
+
+/*img da tela principal*/
+.cont{
+
+  display: flex;
+ flex-direction: column;
+
+}
+
+.container-img img{
+
+  position: absolute;
+top: 290px;
+left: 70px ;
+height: 200px;
+
+}
+  
+/* fim da Parte que deixa responsivo*/
+
+
+
+}
