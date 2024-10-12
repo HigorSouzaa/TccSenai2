@@ -73,14 +73,14 @@ export default function GerarDieta() {
       Etapas a seguir:
       
       1. Informações da pessoa:
-      Idade: 20
-      Peso: 137
-      Altura: 1.93
+      Idade: 18
+      Peso: 65
+      Altura: 1.75
       Sexo: Masculino
       Nível de atividade física: Ativo
-      Meta: Perder peso
-      Alergias alimentares: Nenhuma
-      Condições de saúde ou doenças: Pressão alta
+      Meta: ganhar massa
+      Alergias alimentares: Glúten
+      Condições de saúde ou doenças: nenhuma
       
       2. Cálculo da TMB:
       Utilize as informações acima para calcular a taxa metabólica basal (TMB) utilizando a equação de Mifflin-St Jeor.

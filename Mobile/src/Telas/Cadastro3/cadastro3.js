@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function Cadastro2() {
+export default function Cadastro3() {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -72,7 +72,9 @@ export default function Cadastro2() {
             />
           </View>
           <View style={styles.view_txtEditarPerfil}>
-            <Text style={styles.txt_editarPerfil}>Continuando o Cadastro</Text>
+            <Text style={styles.txt_editarPerfil}>
+              Precisamos de mais informacoes
+            </Text>
           </View>
           <View style={styles.container_body}>
             <View style={styles.body}>
