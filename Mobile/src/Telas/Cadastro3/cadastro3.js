@@ -76,154 +76,27 @@ export default function Cadastro3() {
               Precisamos de mais informacoes
             </Text>
           </View>
+
+          {/* Conteiner para adicionar o body */}
           <View style={styles.container_body}>
-            <View style={styles.body}>
+            <View style={styles.container_restricaoAlimentar}>
+              <Text style={styles.h2_body}>
+                Possui alguma restrição alimentar?
+              </Text>
               <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Seu Nome</Text>
                 <TextInput
                   style={styles.input}
-                  fontSize={24}
-                  placeholder="Ex: Breno A. Santos"
-                  placeholderTextColor={"#E6E3F6"}
-                  fontFamily={"BreeSerif_400Regular"}
-                />
-                <View style={styles.view_line}>
+                  fontSize={22}
+                  placeholder="R: escreva aqui."
+                ></TextInput>
+                <TouchableOpacity>
                   <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Altura</Text>
-                <TextInput
-                  style={styles.input}
-                  fontSize={24}
-                  placeholder="Ex: 192"
-                  placeholderTextColor={"#E6E3F6"}
-                  fontFamily={"BreeSerif_400Regular"}
-                />
-                <View style={styles.view_line}>
-                  <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Idade</Text>
-                <TextInput
-                  style={styles.input}
-                  fontSize={24}
-                  placeholder="Ex: 20"
-                  placeholderTextColor={"#E6E3F6"}
-                  fontFamily={"BreeSerif_400Regular"}
-                />
-                <View style={styles.view_line}>
-                  <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Sexo</Text>
-                <TextInput
-                  style={styles.input}
-                  fontSize={24}
-                  placeholder="Ex: masculino ou feminino"
-                  placeholderTextColor={"#E6E3F6"}
-                  fontFamily={"BreeSerif_400Regular"}
-                />
-                <View style={styles.view_line}>
-                  <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Pais</Text>
-                <TextInput
-                  style={styles.input}
-                  fontSize={24}
-                  placeholder="Ex: Brasil"
-                  placeholderTextColor={"#E6E3F6"}
-                  fontFamily={"BreeSerif_400Regular"}
-                />
-                <View style={styles.view_line}>
-                  <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Telefone</Text>
-                <TextInput
-                  style={styles.input}
-                  fontSize={24}
-                  placeholder="Ex: +55 19 9999-9999"
-                  placeholderTextColor={"#E6E3F6"}
-                  fontFamily={"BreeSerif_400Regular"}
-                />
-                <View style={styles.view_line}>
-                  <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
-              </View>
-
-              <View style={styles.container_input}>
-                <Text style={styles.txt_input}>Data de Nascimento</Text>
-                <TouchableOpacity
-                  onPress={() => setModalVisible(true)}
-                  style={styles.input}
-                >
-                  <Text style={styles.input}>{formattedDate}</Text>
+                    source={require("../../../assets/botaoEnviar.png")}
+                  ></Image>
                 </TouchableOpacity>
-                <View style={styles.view_line}>
-                  <Image
-                    source={require("../../../assets/line_txtInput.png")}
-                    resizeMode="repeat"
-                  />
-                </View>
               </View>
             </View>
           </View>
-
-          {/* Modal para seleção de data */}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Escolha uma nova data:</Text>
-              <DateTimePicker
-                value={date}
-                mode="date"
-                display={Platform.OS === "ios" ? "spinner" : "default"}
-                onChange={onChange}
-                maximumDate={new Date()}
-              />
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.buttonText}>Fechar</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
 
           {/* Ajustando a posição do botão "Salvar" */}
           <View style={styles.conteiner_btSalvar}>
@@ -291,13 +164,11 @@ const styles = StyleSheet.create({
   },
 
   container_body: {
-    width: "90%",
+    width: "100%",
     marginTop: 25,
-    backgroundColor: "white",
-    borderRadius: 35,
+    // backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 20,
   },
 
   view_txtEditarPerfil: {
@@ -313,22 +184,6 @@ const styles = StyleSheet.create({
 
   body: {
     width: "90%",
-  },
-
-  container_input: {
-    marginBottom: 15,
-  },
-
-  txt_input: {
-    color: "#BDBDBD",
-    fontSize: 20,
-    fontFamily: "BreeSerif_400Regular",
-  },
-
-  input: {
-    fontSize: 20,
-    color: "#E6E3F6",
-    fontFamily: "BreeSerif_400Regular",
   },
 
   view_line: {
