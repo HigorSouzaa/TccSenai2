@@ -182,39 +182,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  body: {
-    width: "90%",
-  },
-
-  view_line: {
-    marginTop: 10,
-  },
-
-  modalView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 20,
-  },
-
-  modalText: {
-    marginBottom: 15,
-    fontSize: 18,
-    color: "white",
-  },
-
-  closeButton: {
-    backgroundColor: "#B5B2C6",
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 20, // Adicionei margens para separar o botão
-  },
-
-  buttonText: {
-    color: "white",
-  },
-
   conteiner_btSalvar: {
     width: "90%",
     marginTop: 40,
@@ -234,5 +201,39 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: "BreeSerif_400Regular",
     bottom: 5,
+  },
+
+  container_restricaoAlimentar: {
+    backgroundColor: "white",
+    width: "90%",
+    paddingHorizontal: 25,
+    paddingVertical: 20,
+    borderRadius: 35,
+  },
+
+  h2_body: {
+    color: "#B5B2C6",
+    fontSize: 20,
+    fontFamily: "BreeSerif_400Regular",
+    marginLeft: 5,
+    marginBottom: 5,
+  },
+
+  container_input: {
+    display: "flex",
+    backgroundColor: "#E6E3F6",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 7,
+    marginLeft: 5,
+    borderRadius: 50,
+  },
+
+  input: {
+    color: "#B5B2C6",
+    fontSize: 20,
+    fontFamily: "BreeSerif_400Regular",
+    width: "90%",
   },
 });
