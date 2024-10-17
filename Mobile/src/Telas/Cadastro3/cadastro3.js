@@ -1,4 +1,4 @@
- import React, { useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,36 +9,38 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  Platform,
   ImageBackground,
-  Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Cadastro3() {
   const navigation = useNavigation();
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
-  const [formattedDate, setFormattedDate] = useState("11 de setembro 2002");
-  const [modalVisible, setModalVisible] = useState(false);
+
+  const [restricoes, setRestricoes] = useState("");
+  const [listaRestricoes, setListaRestricoes] = useState([]);
+
+  const [doencas, setDoencas] = useState("");
+  const [listaDoencas, setListaDoencas] = useState([]);
+
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowPicker(false);
-    setDate(currentDate);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const dateString = currentDate.toLocaleDateString("pt-BR", options);
-    setFormattedDate(dateString);
+  const adicionarItem = (item, setItem, lista, setLista) => {
+    if (item.trim() !== "") {
+      setLista((prevLista) => [...prevLista, item]);
+      setItem("");
+    }
   };
+
+  const removerItem = (index, lista, setLista) => {
+    setLista((prevLista) => prevLista.filter((_, i) => i !== index));
+  };
+
+  if (!fontsLoaded) {
+    return null; // Você pode adicionar um carregador aqui se desejar
+  }
 
   return (
     <ScrollView>
@@ -73,11 +75,11 @@ export default function Cadastro3() {
           </View>
           <View style={styles.view_txtEditarPerfil}>
             <Text style={styles.txt_editarPerfil}>
-              Precisamos de mais informacoes
+              Precisamos de mais informações
             </Text>
           </View>
 
-          {/* Conteiner para adicionar o body */}
+          {/* Container para adicionar o body */}
           <View style={styles.container_body}>
             <View style={styles.container_restricaoAlimentar}>
               <Text style={styles.h2_body}>
@@ -88,14 +90,103 @@ export default function Cadastro3() {
                   style={styles.input}
                   fontSize={22}
                   placeholder="R: escreva aqui."
-                ></TextInput>
-                <TouchableOpacity>
-                  <Image
-                    source={require("../../../assets/botaoEnviar.png")}
-                  ></Image>
+                  value={restricoes}
+                  onChangeText={setRestricoes} // Atualiza o estado conforme o usuário digita
+                />
+                <TouchableOpacity
+                  onPress={() =>
+                    adicionarItem(
+                      restricoes,
+                      setRestricoes,
+                      listaRestricoes,
+                      setListaRestricoes
+                    )
+                  }
+                >
+                  <Image source={require("../../../assets/botaoEnviar.png")} />
                 </TouchableOpacity>
               </View>
             </View>
+          </View>
+
+          <View style={styles.view_Restricoes}>
+            <Text style={styles.h1_restricoes}>Restrições Alimentares:</Text>
+            <ScrollView
+              style={styles.txt_area_restricoes}
+              contentContainerStyle={{ flexGrow: 1 }}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.conteiner_ScrollView}>
+                {listaRestricoes.map((item, index) => (
+                  <View key={index} style={styles.item_id1}>
+                    <Text style={styles.txt_item_id1}>{item}</Text>
+                    <TouchableOpacity
+                      onPress={() =>
+                        removerItem(index, listaRestricoes, setListaRestricoes)
+                      }
+                    >
+                      <Image
+                        source={require("../../../assets/BtCancelar.png")}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+
+          {/* Container para doenças */}
+          <View style={styles.container_doenca}>
+            <Text style={styles.h2_body}>Possui alguma doença?</Text>
+            <View style={styles.container_input}>
+              <TextInput
+                style={styles.input}
+                fontSize={22}
+                placeholder="R: escreva aqui."
+                value={doencas}
+                onChangeText={setDoencas} // Atualiza o estado conforme o usuário digita
+              />
+              <TouchableOpacity
+                onPress={() =>
+                  adicionarItem(
+                    doencas,
+                    setDoencas,
+                    listaDoencas,
+                    setListaDoencas
+                  )
+                }
+              >
+                <Image source={require("../../../assets/botaoEnviar.png")} />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.view_Restricoes}>
+            <Text style={styles.h1_restricoes}>Doenças:</Text>
+            <ScrollView
+              style={styles.txt_area_restricoes}
+              contentContainerStyle={{ flexGrow: 1 }}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.conteiner_ScrollView}>
+                {listaDoencas.map((item, index) => (
+                  <View key={index} style={styles.item_id1}>
+                    <Text style={styles.txt_item_id1}>{item}</Text>
+                    <TouchableOpacity
+                      onPress={() =>
+                        removerItem(index, listaDoencas, setListaDoencas)
+                      }
+                    >
+                      <Image
+                        source={require("../../../assets/BtCancelar.png")}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
           </View>
 
           {/* Ajustando a posição do botão "Salvar" */}
@@ -105,7 +196,7 @@ export default function Cadastro3() {
                 source={require("../../../assets/btSalvar.png")}
                 style={styles.btSalvar}
               >
-                <Text style={styles.txtBt}>Proximo</Text>
+                <Text style={styles.txtBt}>Próximo</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
@@ -145,32 +236,6 @@ const styles = StyleSheet.create({
     fontFamily: "BreeSerif_400Regular",
   },
 
-  viewVoltar: {
-    width: "80%",
-    marginTop: 15,
-  },
-
-  conteiner_btVoltar: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  txtVoltar: {
-    color: "#B5B2C6",
-    fontSize: 24,
-    fontFamily: "BreeSerif_400Regular",
-    marginLeft: 5,
-    marginBottom: 5,
-  },
-
-  container_body: {
-    width: "100%",
-    marginTop: 25,
-    // backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
   view_txtEditarPerfil: {
     width: "80%",
   },
@@ -182,25 +247,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  conteiner_btSalvar: {
-    width: "90%",
-    marginTop: 40,
-    alignItems: "flex-end", // Alinha o botão à direita
-    marginBottom: 150,
-  },
-
-  btSalvar: {
-    width: 180,
-    height: 60,
+  container_body: {
+    width: "100%",
+    marginTop: 25,
     justifyContent: "center",
     alignItems: "center",
-  },
-
-  txtBt: {
-    color: "#B5B2C6",
-    fontSize: 32,
-    fontFamily: "BreeSerif_400Regular",
-    bottom: 5,
   },
 
   container_restricaoAlimentar: {
@@ -209,6 +260,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     borderRadius: 35,
+  },
+
+  container_doenca: {
+    backgroundColor: "white",
+    width: "90%",
+    paddingHorizontal: 25,
+    paddingVertical: 20,
+    borderRadius: 35,
+    marginTop: 40,
   },
 
   h2_body: {
@@ -235,5 +295,73 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "BreeSerif_400Regular",
     width: "90%",
+  },
+
+  h1_restricoes: {
+    color: "#B5B2C6",
+    fontSize: 26,
+    fontFamily: "BreeSerif_400Regular",
+    marginLeft: 20,
+    marginBottom: 10,
+    marginTop: 25,
+  },
+
+  txt_area_restricoes: {
+    width: "100%",
+    height: 150,
+    backgroundColor: "white",
+    borderRadius: 35,
+    padding: 10,
+  },
+
+  conteiner_ScrollView: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+
+  item_id1: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderRadius: 15,
+    backgroundColor: "#E6E3F6",
+    marginHorizontal: 5,
+    marginVertical: 5,
+  },
+
+  txt_item_id1: {
+    color: "white",
+    fontSize: 20,
+    fontFamily: "BreeSerif_400Regular",
+    marginRight: 10,
+  },
+
+  view_Restricoes: {
+    width: "90%",
+  },
+
+  conteiner_btSalvar: {
+    width: "90%",
+    marginTop: 40,
+    alignItems: "flex-end", // Alinha o botão à direita
+    marginBottom: 150,
+  },
+
+  btSalvar: {
+    width: 180,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  txtBt: {
+    color: "#B5B2C6",
+    fontSize: 32,
+    fontFamily: "BreeSerif_400Regular",
+    bottom: 5,
   },
 });
