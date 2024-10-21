@@ -22,7 +22,7 @@ function MyStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Cadastro3"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: "#E6E3F5" },

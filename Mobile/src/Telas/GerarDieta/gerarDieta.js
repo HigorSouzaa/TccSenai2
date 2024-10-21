@@ -80,7 +80,7 @@ export default function GerarDieta() {
       Nível de atividade física: Ativo
       Meta: ganhar massa
       Alergias alimentares: Glúten
-      Condições de saúde ou doenças: nenhuma
+      Condições de saúde ou doenças: Diabetes
       
       2. Cálculo da TMB:
       Utilize as informações acima para calcular a taxa metabólica basal (TMB) utilizando a equação de Mifflin-St Jeor.

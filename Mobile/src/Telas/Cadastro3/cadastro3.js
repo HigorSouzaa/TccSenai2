@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRoute } from "react";
 import {
   StyleSheet,
   View,
@@ -10,12 +10,23 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ImageBackground,
+  Switch,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
+import Checkbox from "expo-checkbox";
+import { db } from "../../Config/Firebase/fb";
+import { addDoc, collection } from "firebase/firestore";
 
 export default function Cadastro3() {
+  const route = useRoute(); // Obtém o objeto `route` para acessar os parâmetros
+  const { name, age, gender, height, phone, birthDate, country, email } =
+    route.params;
+
   const navigation = useNavigation();
+
+  const [selectedGoal, setSelectedGoal] = useState(""); // Armazena o checkbox selecionado para a meta
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState(""); // Armazena o checkbox selecionado para o nível de atividade
 
   const [restricoes, setRestricoes] = useState("");
   const [listaRestricoes, setListaRestricoes] = useState([]);
@@ -26,6 +37,46 @@ export default function Cadastro3() {
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
+
+  const saveExtraDetails = async () => {
+    const todasListaRestricoes = [...listaRestricoes].join(", ");
+    const todasListaDoencas = [...listaDoencas].join(", ");
+
+    // Verificação se os checkboxes estão marcados
+    if (!selectedGoal) {
+      alert("Por favor, selecione uma meta.");
+      return;
+    }
+
+    if (!selectedActivityLevel) {
+      alert("Por favor, selecione um nível de atividade física.");
+      return;
+    }
+
+    // Se tudo estiver correto, você pode prosseguir com o salvamento
+    try {
+      const docRef = await addDoc(collection(db, "usuarios", email), {
+        Nome: name,
+        Idade: age,
+        Genero: gender,
+        Altura: height,
+        Telefone: phone,
+        DataAniversario: birthDate,
+        Pais: country,
+        Meta: selectedGoal,
+        NivelAtividade: selectedActivityLevel,
+        Restricoes: todasListaRestricoes,
+        Doencas: todasListaDoencas,
+      });
+      alert("Dados salvos com sucesso!");
+
+      // Navegar para outra tela ou resetar os campos, se necessário
+      navigation.navigate("Perfil");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      alert("Erro ao salvar os dados, tente novamente.");
+    }
+  };
 
   const adicionarItem = (item, setItem, lista, setLista) => {
     if (item.trim() !== "") {
@@ -189,6 +240,95 @@ export default function Cadastro3() {
             </ScrollView>
           </View>
 
+          <View style={styles.conteiner_checkBox}>
+            <Text style={styles.h1_checkBox}>Qual o foco da sua dieta?</Text>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedGoal === "Emagrecer"}
+                onValueChange={() => setSelectedGoal("Emagrecer")}
+                color={selectedGoal === "Emagrecer" ? "#E6E3F6" : "#E6E3F6"}
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Emagrecer</Text>
+            </View>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedGoal === "Ficar Saudável"}
+                onValueChange={() => setSelectedGoal("Ficar Saudável")}
+                color={
+                  selectedGoal === "Ficar Saudável" ? "#E6E3F6" : "#E6E3F6"
+                }
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Ficar Saudável</Text>
+            </View>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedGoal === "Ganhar Massa"}
+                onValueChange={() => setSelectedGoal("Ganhar Massa")}
+                color={selectedGoal === "Ganhar Massa" ? "#E6E3F6" : "#E6E3F6"}
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Ganhar Massa</Text>
+            </View>
+          </View>
+
+          <View style={styles.conteiner_checkBox}>
+            <Text style={styles.h1_checkBox}>
+              Qual nivel de atividade fisica voçê se considera?
+            </Text>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedActivityLevel === "Muito ativo"}
+                onValueChange={() => setSelectedActivityLevel("Muito ativo")}
+                color={
+                  selectedActivityLevel === "Muito ativo"
+                    ? "#E6E3F6"
+                    : "#E6E3F6"
+                }
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Muito ativo</Text>
+            </View>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedActivityLevel === "Ativo"}
+                onValueChange={() => setSelectedActivityLevel("Ativo")}
+                color={
+                  selectedActivityLevel === "Ativo" ? "#E6E3F6" : "#E6E3F6"
+                }
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Ativo</Text>
+            </View>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedActivityLevel === "Levemente ativo"}
+                onValueChange={() =>
+                  setSelectedActivityLevel("Levemente ativo")
+                }
+                color={
+                  selectedActivityLevel === "Levemente ativo"
+                    ? "#E6E3F6"
+                    : "#E6E3F6"
+                }
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Levemente ativo</Text>
+            </View>
+            <View style={styles.box_checkBox}>
+              <Checkbox
+                value={selectedActivityLevel === "Sedentário"}
+                onValueChange={() => setSelectedActivityLevel("Sedentário")}
+                color={
+                  selectedActivityLevel === "Sedentário" ? "#E6E3F6" : "#E6E3F6"
+                }
+                style={styles.checkbox}
+              />
+              <Text style={styles.h2_checkBox}>Sedentario</Text>
+            </View>
+          </View>
+
           {/* Ajustando a posição do botão "Salvar" */}
           <View style={styles.conteiner_btSalvar}>
             <TouchableOpacity style={styles.btSalvar}>
@@ -196,7 +336,7 @@ export default function Cadastro3() {
                 source={require("../../../assets/btSalvar.png")}
                 style={styles.btSalvar}
               >
-                <Text style={styles.txtBt}>Próximo</Text>
+                <Text style={styles.txtBt}>Salvar</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
@@ -363,5 +503,41 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: "BreeSerif_400Regular",
     bottom: 5,
+  },
+
+  conteiner_checkBox: {
+    backgroundColor: "white",
+    marginTop: 50,
+    width: "90%",
+    borderRadius: 35,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    gap: 10,
+  },
+
+  h1_checkBox: {
+    color: "#B5B2C6",
+    fontSize: 20,
+    fontFamily: "BreeSerif_400Regular",
+  },
+
+  box_checkBox: {
+    flexDirection: "row",
+    marginTop: 2,
+    alignItems: "center",
+    left: 10,
+  },
+
+  h2_checkBox: {
+    color: "#B5B2C6",
+    fontSize: 20,
+    fontFamily: "BreeSerif_400Regular",
+    bottom: 1,
+    left: 10,
+  },
+
+  checkbox: {
+    borderRadius: 6,
+    padding: 12,
   },
 });

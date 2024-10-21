@@ -13,16 +13,24 @@ import {
   ImageBackground,
   Modal,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Cadastro2() {
+  const route = useRoute(); // Obtém o objeto `route` para acessar os parâmetros
+  const { email } = route.params;
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [formattedDate, setFormattedDate] = useState("11 de setembro 2002");
   const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [height, setHeight] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [country, setCountry] = useState("");
+  const [phone, setPhone] = useState("");
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
@@ -38,6 +46,20 @@ export default function Cadastro2() {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const dateString = currentDate.toLocaleDateString("pt-BR", options);
     setFormattedDate(dateString);
+  };
+
+  const handleNext = () => {
+    // Navegando para a tela "Cadastro3" e passando os dados
+    navigation.navigate("Cadastro3", {
+      name: name,
+      height: height,
+      age: age,
+      gender: gender,
+      country: country,
+      phone: phone,
+      birthDate: formattedDate,
+      email: email, // Passando a data formatada
+    });
   };
 
   return (
@@ -76,6 +98,7 @@ export default function Cadastro2() {
           </View>
           <View style={styles.container_body}>
             <View style={styles.body}>
+              {/* Inputs para o cadastro */}
               <View style={styles.container_input}>
                 <Text style={styles.txt_input}>Seu Nome</Text>
                 <TextInput
@@ -84,6 +107,8 @@ export default function Cadastro2() {
                   placeholder="Ex: Breno A. Santos"
                   placeholderTextColor={"#E6E3F6"}
                   fontFamily={"BreeSerif_400Regular"}
+                  value={name}
+                  onChangeText={setName} // Captura o nome
                 />
                 <View style={styles.view_line}>
                   <Image
@@ -101,6 +126,8 @@ export default function Cadastro2() {
                   placeholder="Ex: 192"
                   placeholderTextColor={"#E6E3F6"}
                   fontFamily={"BreeSerif_400Regular"}
+                  value={height}
+                  onChangeText={setHeight} // Captura a altura
                 />
                 <View style={styles.view_line}>
                   <Image
@@ -118,6 +145,8 @@ export default function Cadastro2() {
                   placeholder="Ex: 20"
                   placeholderTextColor={"#E6E3F6"}
                   fontFamily={"BreeSerif_400Regular"}
+                  value={age}
+                  onChangeText={setAge} // Captura a idade
                 />
                 <View style={styles.view_line}>
                   <Image
@@ -135,6 +164,8 @@ export default function Cadastro2() {
                   placeholder="Ex: masculino ou feminino"
                   placeholderTextColor={"#E6E3F6"}
                   fontFamily={"BreeSerif_400Regular"}
+                  value={gender}
+                  onChangeText={setGender} // Captura o sexo
                 />
                 <View style={styles.view_line}>
                   <Image
@@ -152,6 +183,8 @@ export default function Cadastro2() {
                   placeholder="Ex: Brasil"
                   placeholderTextColor={"#E6E3F6"}
                   fontFamily={"BreeSerif_400Regular"}
+                  value={country}
+                  onChangeText={setCountry} // Captura o país
                 />
                 <View style={styles.view_line}>
                   <Image
@@ -169,6 +202,8 @@ export default function Cadastro2() {
                   placeholder="Ex: +55 19 9999-9999"
                   placeholderTextColor={"#E6E3F6"}
                   fontFamily={"BreeSerif_400Regular"}
+                  value={phone}
+                  onChangeText={setPhone} // Captura o telefone
                 />
                 <View style={styles.view_line}>
                   <Image
@@ -225,12 +260,12 @@ export default function Cadastro2() {
 
           {/* Ajustando a posição do botão "Salvar" */}
           <View style={styles.conteiner_btSalvar}>
-            <TouchableOpacity style={styles.btSalvar}>
+            <TouchableOpacity style={styles.btSalvar} onPress={handleNext}>
               <ImageBackground
                 source={require("../../../assets/btSalvar.png")}
                 style={styles.btSalvar}
               >
-                <Text style={styles.txtBt}>Proximo</Text>
+                <Text style={styles.txtBt}>Próximo</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>

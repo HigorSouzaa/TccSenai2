@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { db } from '../../Config/Firebase/fb'; // Importando a configuração do Firestore
-import { collection, addDoc } from 'firebase/firestore';
+import { db } from "../../Config/Firebase/fb"; // Importando a configuração do Firestore
+import { collection, addDoc } from "firebase/firestore";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -28,12 +36,12 @@ export default function Cadastro() {
 
     try {
       // Adicionando usuário ao Firestore
-      await addDoc(collection(db, "usuarios"), {
+      await addDoc(collection(db, "usuarios", email), {
         email: email,
         password: password, // Em um ambiente de produção, não é recomendado armazenar senhas em texto claro
       });
       Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
-      navigation.navigate("Login"); // Redirecionar para a tela de login ou outra
+      navigation.navigate("Cadastro2", { email: email });
     } catch (error) {
       Alert.alert("Erro", error.message);
     }
@@ -45,12 +53,19 @@ export default function Cadastro() {
         <View style={styles.footer}>
           <Text style={styles.txt_footer}>Cadastro</Text>
         </View>
-        <Image source={require("../../../assets/imgLogoHome.png")} style={{ width: 340, marginTop: 50 }} resizeMode="contain" />
-        
+        <Image
+          source={require("../../../assets/imgLogoHome.png")}
+          style={{ width: 340, marginTop: 50 }}
+          resizeMode="contain"
+        />
+
         <View style={styles.conteinerInputs}>
           <Text style={styles.txtInputs}>Email:</Text>
           <View style={styles.Inputs}>
-            <Image source={require("../../../assets/emailImg.png")} resizeMode="contain" />
+            <Image
+              source={require("../../../assets/emailImg.png")}
+              resizeMode="contain"
+            />
             <TextInput
               style={styles.input}
               fontSize={22}
@@ -67,7 +82,10 @@ export default function Cadastro() {
         <View style={styles.conteinerInput}>
           <Text style={styles.txtInputs}>Senha:</Text>
           <View style={styles.Inputs}>
-            <Image source={require("../../../assets/senhaImg.png")} resizeMode="contain" />
+            <Image
+              source={require("../../../assets/senhaImg.png")}
+              resizeMode="contain"
+            />
             <TextInput
               style={styles.input2}
               fontSize={22}
@@ -77,8 +95,18 @@ export default function Cadastro() {
               value={password}
               onChangeText={setPassword}
             />
-            <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
-              <Image source={passwordVisible ? require("../../../assets/olhoFechado.png") : require("../../../assets/olhoAberto.png")} resizeMode="contain" style={{ width: 30 }} />
+            <TouchableOpacity
+              onPress={() => setPasswordVisible(!passwordVisible)}
+            >
+              <Image
+                source={
+                  passwordVisible
+                    ? require("../../../assets/olhoFechado.png")
+                    : require("../../../assets/olhoAberto.png")
+                }
+                resizeMode="contain"
+                style={{ width: 30 }}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -86,7 +114,10 @@ export default function Cadastro() {
         <View style={styles.conteinerInput}>
           <Text style={styles.txtInputs}>Repita a Senha:</Text>
           <View style={styles.Inputs}>
-            <Image source={require("../../../assets/senhaImg.png")} resizeMode="contain" />
+            <Image
+              source={require("../../../assets/senhaImg.png")}
+              resizeMode="contain"
+            />
             <TextInput
               style={styles.input2}
               fontSize={22}
@@ -96,8 +127,18 @@ export default function Cadastro() {
               value={confirmPassword}
               onChangeText={setConfirmPassword}
             />
-            <TouchableOpacity onPress={() => setConfirmPasswordVisible(!confirmPasswordVisible)}>
-              <Image source={confirmPasswordVisible ? require("../../../assets/olhoFechado.png") : require("../../../assets/olhoAberto.png")} resizeMode="contain" style={{ width: 30 }} />
+            <TouchableOpacity
+              onPress={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+            >
+              <Image
+                source={
+                  confirmPasswordVisible
+                    ? require("../../../assets/olhoFechado.png")
+                    : require("../../../assets/olhoAberto.png")
+                }
+                resizeMode="contain"
+                style={{ width: 30 }}
+              />
             </TouchableOpacity>
           </View>
         </View>
