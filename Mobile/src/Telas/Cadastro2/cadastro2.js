@@ -27,6 +27,7 @@ export default function Cadastro2() {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
   const [height, setHeight] = useState("");
+  const [peso, setPeso] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [country, setCountry] = useState("");
@@ -58,6 +59,7 @@ export default function Cadastro2() {
       country: country,
       phone: phone,
       birthDate: formattedDate,
+      peso: peso,
       email: email, // Passando a data formatada
     });
   };
@@ -128,6 +130,25 @@ export default function Cadastro2() {
                   fontFamily={"BreeSerif_400Regular"}
                   value={height}
                   onChangeText={setHeight} // Captura a altura
+                />
+                <View style={styles.view_line}>
+                  <Image
+                    source={require("../../../assets/line_txtInput.png")}
+                    resizeMode="repeat"
+                  />
+                </View>
+              </View>
+
+              <View style={styles.container_input}>
+                <Text style={styles.txt_input}>Peso</Text>
+                <TextInput
+                  style={styles.input}
+                  fontSize={24}
+                  placeholder="Ex: 98"
+                  placeholderTextColor={"#E6E3F6"}
+                  fontFamily={"BreeSerif_400Regular"}
+                  value={peso}
+                  onChangeText={setPeso} // 
                 />
                 <View style={styles.view_line}>
                   <Image

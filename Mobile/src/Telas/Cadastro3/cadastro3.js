@@ -1,4 +1,4 @@
-import React, { useState, useRoute } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -12,15 +12,15 @@ import {
   ImageBackground,
   Switch,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import Checkbox from "expo-checkbox";
 import { db } from "../../Config/Firebase/fb";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc} from "firebase/firestore";
 
 export default function Cadastro3() {
   const route = useRoute(); // Obtém o objeto `route` para acessar os parâmetros
-  const { name, age, gender, height, phone, birthDate, country, email } =
+  const { name, age, gender, height, phone, birthDate, country, email, peso} =
     route.params;
 
   const navigation = useNavigation();
@@ -38,24 +38,37 @@ export default function Cadastro3() {
     BreeSerif_400Regular,
   });
 
-  const saveExtraDetails = async () => {
-    const todasListaRestricoes = [...listaRestricoes].join(", ");
-    const todasListaDoencas = [...listaDoencas].join(", ");
+  function calcularTMB(peso, altura, idade, sexo) {
+    let tmb;
+  
+    if (sexo === 'masculino') {
+      tmb = 10 * peso + 6.25 * altura - 5 * idade + 5;
+    } else if (sexo === 'feminino') {
+      tmb = 10 * peso + 6.25 * altura - 5 * idade - 161;
+    }
+  
+    return tmb;
+  }
 
+  const saveExtraDetails = async () => {
+    const todasListaRestricoes = listaRestricoes.length > 0 ? [...listaRestricoes].join(", ") : "Nada";
+    const todasListaDoencas = listaDoencas.length > 0 ? [...listaDoencas].join(", ") : "Nada";
+  
     // Verificação se os checkboxes estão marcados
     if (!selectedGoal) {
       alert("Por favor, selecione uma meta.");
       return;
     }
-
+  
     if (!selectedActivityLevel) {
       alert("Por favor, selecione um nível de atividade física.");
       return;
     }
-
+  
     // Se tudo estiver correto, você pode prosseguir com o salvamento
     try {
-      const docRef = await addDoc(collection(db, "usuarios", email), {
+      const userDocRef = doc(db, "usuarios", email); // Cria a referência do documento com o email como ID
+      await setDoc(userDocRef, {
         Nome: name,
         Idade: age,
         Genero: gender,
@@ -67,11 +80,13 @@ export default function Cadastro3() {
         NivelAtividade: selectedActivityLevel,
         Restricoes: todasListaRestricoes,
         Doencas: todasListaDoencas,
+        Peso: peso,
+        TaxaBasal: calcularTMB(peso, height, age, gender)
       });
       alert("Dados salvos com sucesso!");
-
+  
       // Navegar para outra tela ou resetar os campos, se necessário
-      navigation.navigate("Perfil");
+      navigation.navigate("Home");
     } catch (e) {
       console.error("Error adding document: ", e);
       alert("Erro ao salvar os dados, tente novamente.");
@@ -331,7 +346,7 @@ export default function Cadastro3() {
 
           {/* Ajustando a posição do botão "Salvar" */}
           <View style={styles.conteiner_btSalvar}>
-            <TouchableOpacity style={styles.btSalvar}>
+            <TouchableOpacity style={styles.btSalvar} onPress={saveExtraDetails}>
               <ImageBackground
                 source={require("../../../assets/btSalvar.png")}
                 style={styles.btSalvar}

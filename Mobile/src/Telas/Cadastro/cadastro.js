@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { db } from "../../Config/Firebase/fb"; // Importando a configuração do Firestore
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -33,10 +33,10 @@ export default function Cadastro() {
       Alert.alert("Erro", "As senhas não coincidem!");
       return;
     }
-
+  
     try {
-      // Adicionando usuário ao Firestore
-      await addDoc(collection(db, "usuarios", email), {
+      // Adicionando usuário ao Firestore com o email como ID do documento
+      await setDoc(doc(db, "usuarios", email), {
         email: email,
         password: password, // Em um ambiente de produção, não é recomendado armazenar senhas em texto claro
       });
