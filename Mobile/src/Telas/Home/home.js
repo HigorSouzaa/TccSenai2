@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -6,18 +6,44 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 
 export default function Home() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { userData } = route.params; // Certifique-se de que userData sempre seja passado
+  const [isLoading, setIsLoading] = useState(true);
+
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
 
+  // Colocando o useEffect fora de qualquer condicional
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); // Finaliza o carregamento
+    }, 200);
+    return () => clearTimeout(timer); // Limpa o timer no unmount
+  }, []);
+
   if (!fontsLoaded) {
-    return null;
+    return null; // Evita renderização até que as fontes sejam carregadas
+  }
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text style={styles.loadingText}>Carregando informações...</Text>
+      </View>
+    );
+  }
+
+  function obterProteinas(taxaBasal) {
+    return taxaBasal * 0.4 + "g";
   }
 
   return (
@@ -48,7 +74,8 @@ export default function Home() {
       </View>
       <View style={styles.container_body}>
         <View style={styles.up_body}>
-          <Text style={styles.txt_msm_usuario}>Olá ?????</Text>
+          {/* Acessa os dados do usuário aqui */}
+          <Text style={styles.txt_msm_usuario}>Olá, {userData.Nome}</Text>
           <TouchableOpacity
             style={styles.bt_gerar_dieta}
             onPress={() => navigation.navigate("GerarDieta")}
@@ -64,7 +91,7 @@ export default function Home() {
             </View>
             <View style={styles.body_calorias}>
               <View style={styles.rightBody_calorias}>
-                <Text style={styles.txt_caloriasN}>0.000</Text>
+                <Text style={styles.txt_caloriasN}>{userData.TaxaBasal}</Text>
                 <Text style={styles.txt_caloriasT}>Restante</Text>
               </View>
               <View style={styles.leftBody_calorias}>
@@ -118,6 +145,18 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  loadingText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: "#000",
+  },
+
   container: {
     flexGrow: 1,
     alignItems: "center",

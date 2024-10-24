@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { db } from '../../Config/Firebase/fb'; // Importando a configuração do Firestore
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from "../../Config/Firebase/fb"; // Importando a configuração do Firestore
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -13,37 +22,51 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!fontsLoaded) {
     return null;
   }
 
   const handleLogin = async () => {
+    setIsLoading(true); // Inicia o carregamento
     try {
-      const q = query(collection(db, "usuarios"), where("email", "==", email));
+      const q = query(collection(db, "usuarios"), where("Email", "==", email));
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
         Alert.alert("Erro", "Email não encontrado.");
+        setIsLoading(false); // Finaliza o carregamento
         return;
       }
 
       let user = null;
       querySnapshot.forEach((doc) => {
-        user = doc.data();
+        user = { id: doc.id, ...doc.data() }; // Captura o objeto do cliente com ID
       });
 
-      if (user.password !== password) {
+      if (user.Senha !== password) {
         Alert.alert("Erro", "Senha incorreta.");
       } else {
         Alert.alert("Sucesso", "Login realizado com sucesso!");
-        navigation.navigate('Home')
-        // Navegar para a tela principal ou qualquer outra tela desejada
+        setIsLoading(false); // Finaliza o carregamento
+        navigation.navigate("Home", { userData: user }); // Passa o objeto completo para a Home
       }
     } catch (error) {
       Alert.alert("Erro", error.message);
+      setIsLoading(false); // Finaliza o carregamento
     }
   };
+
+  if (isLoading) {
+    // Exibe uma tela de carregamento enquanto o estado `isLoading` é true
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text style={styles.loadingText}>Carregando...</Text>
+      </View>
+    );
+  }
 
   return (
     <KeyboardAwareScrollView>
@@ -86,7 +109,9 @@ export default function Login() {
               value={password}
               onChangeText={setPassword}
             />
-            <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
+            <TouchableOpacity
+              onPress={() => setPasswordVisible(!passwordVisible)}
+            >
               <Image
                 source={
                   passwordVisible
@@ -101,7 +126,11 @@ export default function Login() {
         </View>
         <View style={styles.conteiner_restaurarSenha}>
           <Text style={styles.text_recuperarSenha}>recupera a senha </Text>
-          <TouchableOpacity onPress={() => {navigation.navigate('InsiraEmail')}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("InsiraEmail");
+            }}
+          >
             <Text style={styles.highlight}>clique aqui!</Text>
           </TouchableOpacity>
         </View>
@@ -126,6 +155,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: "#000",
+  },
   conteinerInputs: {
     width: "80%",
     marginTop: 40,

@@ -33,12 +33,12 @@ export default function Cadastro() {
       Alert.alert("Erro", "As senhas não coincidem!");
       return;
     }
-  
+
     try {
       // Adicionando usuário ao Firestore com o email como ID do documento
       await setDoc(doc(db, "usuarios", email), {
-        email: email,
-        password: password, // Em um ambiente de produção, não é recomendado armazenar senhas em texto claro
+        Email: email,
+        Senha: password, // Em um ambiente de produção, não é recomendado armazenar senhas em texto claro
       });
       Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
       navigation.navigate("Cadastro2", { email: email });

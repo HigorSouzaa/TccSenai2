@@ -16,11 +16,11 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import Checkbox from "expo-checkbox";
 import { db } from "../../Config/Firebase/fb";
-import { doc, setDoc} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 export default function Cadastro3() {
   const route = useRoute(); // Obtém o objeto `route` para acessar os parâmetros
-  const { name, age, gender, height, phone, birthDate, country, email, peso} =
+  const { name, age, gender, height, phone, birthDate, country, email, peso } =
     route.params;
 
   const navigation = useNavigation();
@@ -40,35 +40,37 @@ export default function Cadastro3() {
 
   function calcularTMB(peso, altura, idade, sexo) {
     let tmb;
-  
-    if (sexo === 'masculino') {
+
+    if (sexo === "masculino") {
       tmb = 10 * peso + 6.25 * altura - 5 * idade + 5;
-    } else if (sexo === 'feminino') {
+    } else if (sexo === "feminino") {
       tmb = 10 * peso + 6.25 * altura - 5 * idade - 161;
     }
-  
+
     return tmb;
   }
 
   const saveExtraDetails = async () => {
-    const todasListaRestricoes = listaRestricoes.length > 0 ? [...listaRestricoes].join(", ") : "Nada";
-    const todasListaDoencas = listaDoencas.length > 0 ? [...listaDoencas].join(", ") : "Nada";
-  
+    const todasListaRestricoes =
+      listaRestricoes.length > 0 ? [...listaRestricoes].join(", ") : "Nada";
+    const todasListaDoencas =
+      listaDoencas.length > 0 ? [...listaDoencas].join(", ") : "Nada";
+
     // Verificação se os checkboxes estão marcados
     if (!selectedGoal) {
       alert("Por favor, selecione uma meta.");
       return;
     }
-  
+
     if (!selectedActivityLevel) {
       alert("Por favor, selecione um nível de atividade física.");
       return;
     }
-  
+
     // Se tudo estiver correto, você pode prosseguir com o salvamento
     try {
       const userDocRef = doc(db, "usuarios", email); // Cria a referência do documento com o email como ID
-      await setDoc(userDocRef, {
+      await updateDoc(userDocRef, {
         Nome: name,
         Idade: age,
         Genero: gender,
@@ -81,10 +83,10 @@ export default function Cadastro3() {
         Restricoes: todasListaRestricoes,
         Doencas: todasListaDoencas,
         Peso: peso,
-        TaxaBasal: calcularTMB(peso, height, age, gender)
+        TaxaBasal: calcularTMB(peso, height, age, gender),
       });
       alert("Dados salvos com sucesso!");
-  
+
       // Navegar para outra tela ou resetar os campos, se necessário
       navigation.navigate("Home");
     } catch (e) {
@@ -346,7 +348,10 @@ export default function Cadastro3() {
 
           {/* Ajustando a posição do botão "Salvar" */}
           <View style={styles.conteiner_btSalvar}>
-            <TouchableOpacity style={styles.btSalvar} onPress={saveExtraDetails}>
+            <TouchableOpacity
+              style={styles.btSalvar}
+              onPress={saveExtraDetails}
+            >
               <ImageBackground
                 source={require("../../../assets/btSalvar.png")}
                 style={styles.btSalvar}
