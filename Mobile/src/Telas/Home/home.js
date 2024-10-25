@@ -43,7 +43,15 @@ export default function Home() {
   }
 
   function obterProteinas(taxaBasal) {
-    return taxaBasal * 0.4 + "g";
+    return ((taxaBasal * 0.45) / 4).toFixed(2) + "g";
+  }
+
+  function obterCarbo(taxaBasal) {
+    return ((taxaBasal * 0.35) / 4).toFixed(2) + "g";
+  }
+
+  function obterGordura(taxaBasal) {
+    return ((taxaBasal * 0.2) / 9).toFixed(2) + "g";
   }
 
   return (
@@ -60,7 +68,9 @@ export default function Home() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.touchableopacity_header}
-              onPress={() => navigation.navigate("Perfil")}
+              onPress={() =>
+                navigation.navigate("Perfil", { userData: userData })
+              }
             >
               <Text style={styles.txt_links}>Perfil</Text>
             </TouchableOpacity>
@@ -75,7 +85,9 @@ export default function Home() {
       <View style={styles.container_body}>
         <View style={styles.up_body}>
           {/* Acessa os dados do usuário aqui */}
-          <Text style={styles.txt_msm_usuario}>Olá, {userData.Nome}</Text>
+          <Text style={styles.txt_msm_usuario}>
+            Olá, {userData.Nome.split(" ")[0]}
+          </Text>
           <TouchableOpacity
             style={styles.bt_gerar_dieta}
             onPress={() => navigation.navigate("GerarDieta")}
@@ -95,13 +107,19 @@ export default function Home() {
                 <Text style={styles.txt_caloriasT}>Restante</Text>
               </View>
               <View style={styles.leftBody_calorias}>
-                <Text style={styles.txt_caloriasM}>Proteínas 000.0g</Text>
-                <Text style={styles.txt_caloriasM}>Carbo 000.0g</Text>
-                <Text style={styles.txt_caloriasM}>Gordura 000.0g</Text>
+                <Text style={styles.txt_caloriasM}>
+                  Proteínas {obterProteinas(userData.TaxaBasal)}
+                </Text>
+                <Text style={styles.txt_caloriasM}>
+                  Carbo {obterCarbo(userData.TaxaBasal)}
+                </Text>
+                <Text style={styles.txt_caloriasM}>
+                  Gordura {obterGordura(userData.TaxaBasal)}
+                </Text>
               </View>
             </View>
           </View>
-          <View style={styles.conteiner_peso}></View>
+          {/* <View style={styles.conteiner_peso}></View> */}
           <TouchableOpacity style={styles.conteiner_refeicao}>
             <View style={styles.body_refeicao}>
               <Text style={styles.h1_refeicao}>Café da Manhã</Text>
@@ -234,7 +252,7 @@ const styles = StyleSheet.create({
   },
 
   conteiner_calorias: {
-    width: "90%",
+    width: "100%",
     height: 250,
     backgroundColor: "#e4e0f2",
     borderRadius: 24,

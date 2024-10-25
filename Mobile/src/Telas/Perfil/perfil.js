@@ -8,11 +8,13 @@ import {
   ImageBackground,
   Platform,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 
 export default function Perfil() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { userData } = route.params;
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
@@ -32,7 +34,9 @@ export default function Perfil() {
           <View style={styles.nav_links}>
             <TouchableOpacity
               style={styles.touchableopacity_header}
-              onPress={() => navigation.navigate("Home")}
+              onPress={() =>
+                navigation.navigate("Home", { userData: userData })
+              }
             >
               <Text style={styles.txt_links}>Home</Text>
             </TouchableOpacity>
@@ -75,7 +79,11 @@ export default function Perfil() {
 
       <View style={styles.body}>
         <Text style={styles.txt_nome}>Breno A. Silva</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("EditarPerfil")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("EditarPerfil", { userData: userData })
+          }
+        >
           <ImageBackground
             source={require("../../../assets/background1.png")} // Substitua pelo caminho da sua imagem
             style={styles.conteiner_bt1}
@@ -90,7 +98,9 @@ export default function Perfil() {
           </ImageBackground>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("MinhasInformacoes")}
+          onPress={() =>
+            navigation.navigate("MinhasInformacoes", { userData: userData })
+          }
         >
           <ImageBackground
             source={require("../../../assets/background2.png")} // Substitua pelo caminho da sua imagem
@@ -105,7 +115,11 @@ export default function Perfil() {
             <Text style={styles.txtBt}>Minhas Informações</Text>
           </ImageBackground>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("DietaDiaria")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("DietaDiaria", { userData: userData })
+          }
+        >
           <ImageBackground
             source={require("../../../assets/background3.png")} // Substitua pelo caminho da sua imagem
             style={styles.conteiner_bt3}

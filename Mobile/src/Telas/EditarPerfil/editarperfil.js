@@ -12,16 +12,28 @@ import {
   ImageBackground,
   Modal,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../Config/Firebase/fb";
 
 export default function EditarPerfil() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { userData } = route.params || {};
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
-  const [formattedDate, setFormattedDate] = useState("11 de setembro 2002");
+  const [formattedDate, setFormattedDate] = useState(
+    userData?.DataAniversario || "Selecione uma data"
+  );
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [nome, setNome] = useState(userData?.Nome || "");
+  const [email, setEmail] = useState(userData?.Email || "");
+  const [pais, setPais] = useState(userData?.Pais || "");
+  const [telefone, setTelefone] = useState(userData?.Telefone || "");
+
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
@@ -31,12 +43,42 @@ export default function EditarPerfil() {
   }
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowPicker(false);
-    setDate(currentDate);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const dateString = currentDate.toLocaleDateString("pt-BR", options);
-    setFormattedDate(dateString);
+    if (event.type === "set") {
+      const currentDate = selectedDate || date;
+      setShowPicker(false);
+      setDate(currentDate);
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const dateString = currentDate.toLocaleDateString("pt-BR", options);
+      setFormattedDate(dateString);
+    }
+    setModalVisible(false);
+  };
+
+  const updatePerfil = async () => {
+    try {
+      const userDocRef = doc(db, "usuarios", userData.Email);
+      await updateDoc(userDocRef, {
+        Nome: nome,
+        Email: email,
+        Pais: pais,
+        Telefone: telefone,
+        DataAniversario: formattedDate,
+      });
+      alert("Dados mudados com sucesso!");
+      navigation.navigate("Home", {
+        userData: {
+          ...userData,
+          Nome: nome,
+          Email: email,
+          Pais: pais,
+          Telefone: telefone,
+          DataAniversario: formattedDate,
+        },
+      });
+    } catch (e) {
+      console.error("Error updating document: ", e);
+      alert("Erro ao salvar os dados, tente novamente.");
+    }
   };
 
   return (
@@ -51,13 +93,17 @@ export default function EditarPerfil() {
             <View style={styles.nav_links}>
               <TouchableOpacity
                 style={styles.touchableopacity_header}
-                onPress={() => navigation.navigate("Home")}
+                onPress={() =>
+                  navigation.navigate("Home", { userData: userData })
+                }
               >
                 <Text style={styles.txt_links}>Home</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.touchableopacity_header}
-                onPress={() => navigation.navigate("Perfil")}
+                onPress={() =>
+                  navigation.navigate("Perfil", { userData: userData })
+                }
               >
                 <Text style={styles.txt_links}>Perfil</Text>
               </TouchableOpacity>
@@ -72,7 +118,9 @@ export default function EditarPerfil() {
         <View style={styles.viewVoltar}>
           <TouchableOpacity
             style={styles.conteiner_btVoltar}
-            onPress={() => navigation.navigate("Perfil")}
+            onPress={() =>
+              navigation.navigate("Perfil", { userData: userData })
+            }
           >
             <Image
               source={require("../../../assets/iconVoltar.png")}
@@ -91,9 +139,11 @@ export default function EditarPerfil() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="Breno A. Santos"
+                placeholder="Nome"
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={nome}
+                onChangeText={setNome} // Atualiza o estado ao digitar
               />
               <View style={styles.view_line}>
                 <Image
@@ -108,9 +158,11 @@ export default function EditarPerfil() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="brenin@gmail.com"
+                placeholder="Email"
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={email}
+                onChangeText={setEmail} // Atualiza o estado ao digitar
               />
               <View style={styles.view_line}>
                 <Image
@@ -125,9 +177,11 @@ export default function EditarPerfil() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="Brasil"
+                placeholder="Pais"
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={pais}
+                onChangeText={setPais} // Atualiza o estado ao digitar
               />
               <View style={styles.view_line}>
                 <Image
@@ -142,9 +196,11 @@ export default function EditarPerfil() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="+55 19 9999-9999"
+                placeholder="Telefone"
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={telefone}
+                onChangeText={setTelefone} // Atualiza o estado ao digitar
               />
               <View style={styles.view_line}>
                 <Image
@@ -199,9 +255,11 @@ export default function EditarPerfil() {
           </View>
         </Modal>
 
-        {/* Ajustando a posição do botão "Salvar" */}
         <View style={styles.conteiner_btSalvar}>
-          <TouchableOpacity style={styles.btSalvar}>
+          <TouchableOpacity
+            style={styles.btSalvar}
+            onPress={() => updatePerfil()}
+          >
             <ImageBackground
               source={require("../../../assets/btSalvar.png")}
               style={styles.btSalvar}
@@ -351,8 +409,4 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily: "BreeSerif_400Regular",
   },
-
-  
-
-
 });
