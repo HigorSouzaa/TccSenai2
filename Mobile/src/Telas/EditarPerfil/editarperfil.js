@@ -15,7 +15,7 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from "../../Config/Firebase/fb";
 
 export default function EditarPerfil() {
@@ -55,25 +55,38 @@ export default function EditarPerfil() {
   };
 
   const updatePerfil = async () => {
+    const saveUserData = {
+      Nome: nome || userData.Nome,
+      Email: email || userData.Email,
+      Pais: pais || userData.Pais,
+      Telefone: telefone || userData.Telefone,
+      DataAniversario: formattedDate || userData.DataAniversario,
+      Altura: userData.Altura,
+      Peso: userData.Peso,
+      Meta: userData.Meta,
+      Genero: userData.Genero,
+      Idade: userData.Idade,
+      NivelAtividade: userData.NivelAtividade,
+      Restricoes: userData.Restricoes,
+      Senha: userData.Senha,
+      TaxaBasal: userData.TaxaBasal,
+      Doenca: userData.Doenca
+    };
+
     try {
-      const userDocRef = doc(db, "usuarios", userData.Email);
-      await updateDoc(userDocRef, {
-        Nome: nome,
-        Email: email,
-        Pais: pais,
-        Telefone: telefone,
-        DataAniversario: formattedDate,
-      });
-      alert("Dados mudados com sucesso!");
+      if (email.trim() && email === userData.Email) {
+        // Atualiza o documento existente se o email não mudou
+        await updateDoc(doc(db, "usuarios", userData.Email), saveUserData);
+        alert("Dados atualizados com sucesso!");
+      } else {
+        // Apaga o documento do email antigo e cria um novo se o email foi alterado
+        await deleteDoc(doc(db, "usuarios", userData.Email));
+        await setDoc(doc(db, "usuarios", email), saveUserData);
+        alert("Email atualizado e dados salvos com sucesso!");
+      }
+
       navigation.navigate("Home", {
-        userData: {
-          ...userData,
-          Nome: nome,
-          Email: email,
-          Pais: pais,
-          Telefone: telefone,
-          DataAniversario: formattedDate,
-        },
+        userData: saveUserData,
       });
     } catch (e) {
       console.error("Error updating document: ", e);
@@ -143,7 +156,7 @@ export default function EditarPerfil() {
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={nome}
-                onChangeText={setNome} // Atualiza o estado ao digitar
+                onChangeText={setNome}
               />
               <View style={styles.view_line}>
                 <Image
@@ -162,7 +175,7 @@ export default function EditarPerfil() {
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={email}
-                onChangeText={setEmail} // Atualiza o estado ao digitar
+                onChangeText={setEmail}
               />
               <View style={styles.view_line}>
                 <Image
@@ -181,7 +194,7 @@ export default function EditarPerfil() {
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={pais}
-                onChangeText={setPais} // Atualiza o estado ao digitar
+                onChangeText={setPais}
               />
               <View style={styles.view_line}>
                 <Image
@@ -200,7 +213,7 @@ export default function EditarPerfil() {
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={telefone}
-                onChangeText={setTelefone} // Atualiza o estado ao digitar
+                onChangeText={setTelefone}
               />
               <View style={styles.view_line}>
                 <Image
@@ -264,7 +277,7 @@ export default function EditarPerfil() {
               source={require("../../../assets/btSalvar.png")}
               style={styles.btSalvar}
             >
-              <Text style={styles.txtBt}>Salvar</Text>
+              <Text style={styles.txtBtSalvar}>Salvar Alterações</Text>
             </ImageBackground>
           </TouchableOpacity>
         </View>

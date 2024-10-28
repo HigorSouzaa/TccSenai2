@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -11,19 +11,48 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function MinhasInformacoes() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { userData } = route.params;
+
+  const [altura, setAltura] = useState("");
+  const [peso, setPeso] = useState("");
+  const [sexo, setSexo] = useState("");
+
+  const [novaDoenca, setNovaDoenca] = useState(""); // Estado para o novo item de doença
+  const [listaDoencas, setListaDoencas] = useState([]);
+
+  const [novoAlimentoAlergico, setNovoAlimentoAlergico] = useState(""); // Estado para novo alimento alérgico
+  const [listaAlimentosAlergicos, setListaAlimentosAlergicos] = useState([]); // Estado para alimentos alérgicos como objetos
+
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
 
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
   if (!fontsLoaded) {
     return null;
   }
+
+  // Função para adicionar itens às listas
+  const adicionarItem = (item, setLista, setValor) => {
+    if (item.trim() !== "") {
+      setLista((prevLista) => [...prevLista, item]);
+      setValor(""); // Limpa o campo de entrada
+    }
+  };
+
+  // Função para remover itens das listas
+  const removerItem = (index, setLista) => {
+    setLista((prevLista) => prevLista.filter((_, i) => i !== index));
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -38,13 +67,17 @@ export default function MinhasInformacoes() {
               <View style={styles.nav_links}>
                 <TouchableOpacity
                   style={styles.touchableopacity_header}
-                  onPress={() => navigation.navigate("Home")}
+                  onPress={() =>
+                    navigation.navigate("Home", { userData: userData })
+                  }
                 >
                   <Text style={styles.txt_links}>Home</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.touchableopacity_header}
-                  onPress={() => navigation.navigate("Perfil")}
+                  onPress={() =>
+                    navigation.navigate("Perfil", { userData: userData })
+                  }
                 >
                   <Text style={styles.txt_links}>Perfil</Text>
                 </TouchableOpacity>
@@ -59,7 +92,9 @@ export default function MinhasInformacoes() {
           <View style={styles.viewVoltar}>
             <TouchableOpacity
               style={styles.conteiner_btVoltar}
-              onPress={() => navigation.navigate("Perfil")}
+              onPress={() =>
+                navigation.navigate("Perfil", { userData: userData })
+              }
             >
               <Image
                 source={require("../../../assets/iconVoltar.png")}
@@ -77,9 +112,11 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="192 cm"
+                placeholder={userData.Altura}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={altura}
+                onChangeText={setAltura}
               />
               <View style={styles.view_line}>
                 <Image
@@ -94,9 +131,11 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="84 kg"
+                placeholder={userData.Peso}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={peso}
+                onChangeText={setPeso}
               />
               <View style={styles.view_line}>
                 <Image
@@ -111,9 +150,11 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder="Masculino"
+                placeholder={userData.Genero}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
+                value={sexo}
+                onChangeText={setSexo}
               />
               <View style={styles.view_line}>
                 <Image
@@ -123,6 +164,8 @@ export default function MinhasInformacoes() {
               </View>
             </View>
           </View>
+
+          {/* Seção de Doenças */}
           <View style={styles.box}>
             <View style={styles.conteiner_texto}>
               <Text style={styles.txtBox_h1}>Doenças:</Text>
@@ -131,8 +174,15 @@ export default function MinhasInformacoes() {
                   style={styles.txt_escreAq}
                   placeholder="escreva aqui"
                   placeholderTextColor="#E5E3F6"
+                  value={novaDoenca} // Atualiza o valor com o estado da nova doença
+                  onChangeText={setNovaDoenca} // Atualiza o estado quando o texto muda
                 />
-                <TouchableOpacity style={styles.btEnviar}>
+                <TouchableOpacity
+                  style={styles.btEnviar}
+                  onPress={() =>
+                    adicionarItem(novaDoenca, setListaDoencas, setNovaDoenca)
+                  }
+                >
                   <Image
                     source={require("../../../assets/botaoEnviar.png")}
                     resizeMode="contain"
@@ -146,32 +196,42 @@ export default function MinhasInformacoes() {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}
               >
-                {/* Conteúdo rolável para proteínas */}
+                {/* Renderizar cada doença como um item separado */}
                 <View style={styles.conteiner_ScrollView}>
-                  <View style={styles.item_id1}>
-                    <Text style={styles.txt_item_id1}>Diabete</Text>
-                    <TouchableOpacity>
-                      <Image
-                        source={require("../../../assets/BtCancelar.png")}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  {listaDoencas.map((item, index) => (
+                    <View style={styles.item_id1} key={index}>
+                      <Text style={styles.txt_item_id1}>{item}</Text>
+                      <TouchableOpacity
+                        onPress={() => removerItem(index, setListaDoencas)}
+                      >
+                        <Image
+                          source={require("../../../assets/BtCancelar.png")}
+                          resizeMode="contain"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
                 </View>
               </ScrollView>
             </View>
           </View>
 
+          {/* Seção de Alimentos Alergicos */}
           <View style={styles.box}>
             <View style={styles.conteiner_texto}>
-              <Text style={styles.txtBox_h1}>Alimentos Alergico:</Text>
+              <Text style={styles.txtBox_h1}>Alimentos Alergicos:</Text>
               <View style={styles.campo_escreAq}>
                 <TextInput
                   style={styles.txt_escreAq}
                   placeholder="escreva aqui"
                   placeholderTextColor="#E5E3F6"
+                  value={novoAlimentoAlergico} // Atualiza o valor com o estado do novo alimento alérgico
+                  onChangeText={setNovoAlimentoAlergico} // Atualiza o estado quando o texto muda
                 />
-                <TouchableOpacity style={styles.btEnviar}>
+                <TouchableOpacity
+                  style={styles.btEnviar}
+                  onPress={adicionarAlimentoAlergico}
+                >
                   <Image
                     source={require("../../../assets/botaoEnviar.png")}
                     resizeMode="contain"
@@ -185,30 +245,24 @@ export default function MinhasInformacoes() {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}
               >
-                {/* Conteúdo rolável para proteínas */}
+                {/* Renderizar cada alimento alérgico como um item separado */}
                 <View style={styles.conteiner_ScrollView}>
-                  <View style={styles.item_id1}>
-                    <Text style={styles.txt_item_id1}>Lactose</Text>
-                    <TouchableOpacity>
-                      <Image
-                        source={require("../../../assets/BtCancelar.png")}
-                        resizeMode="contain"
-                      />
-                    </TouchableOpacity>
-                  </View>
+                  {alimentosAlergicos.map((alimento) => (
+                    <View style={styles.item_id1} key={alimento.id}>
+                      <Text style={styles.txt_item_id1}>{alimento.nome}</Text>
+                      <TouchableOpacity
+                        onPress={() => removerAlimentoAlergico(alimento.id)}
+                      >
+                        <Image
+                          source={require("../../../assets/BtCancelar.png")}
+                          resizeMode="contain"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
                 </View>
               </ScrollView>
             </View>
-          </View>
-          <View style={styles.conteiner_btSalvar}>
-            <TouchableOpacity style={styles.btSalvar}>
-              <ImageBackground
-                source={require("../../../assets/btSalvar.png")}
-                style={styles.btSalvar}
-              >
-                <Text style={styles.txtBt}>Salvar</Text>
-              </ImageBackground>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

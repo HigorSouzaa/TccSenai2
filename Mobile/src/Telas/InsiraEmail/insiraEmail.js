@@ -55,7 +55,7 @@ export default function InsiraEmail() {
       const usuariosRef = collection(db, "usuarios");
 
       // Cria uma query para buscar o documento com o email fornecido
-      const q = query(usuariosRef, where("email", "==", email));
+      const q = query(usuariosRef, where("Email", "==", email));
 
       // Executa a query
       const querySnapshot = await getDocs(q);
