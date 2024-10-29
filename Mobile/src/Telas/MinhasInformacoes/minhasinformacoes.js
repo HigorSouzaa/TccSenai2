@@ -34,7 +34,12 @@ export default function MinhasInformacoes() {
   });
 
   useEffect(() => {
-    console.log(userData);
+    if (userData?.Doenca) {
+      setListaDoencas(userData.Doenca);
+    }
+    if (userData?.Restricoes) {
+      setListaAlimentosAlergicos(userData.Restricoes);
+    }
   }, [userData]);
 
   if (!fontsLoaded) {
@@ -52,6 +57,34 @@ export default function MinhasInformacoes() {
   // Função para remover itens das listas
   const removerItem = (index, setLista) => {
     setLista((prevLista) => prevLista.filter((_, i) => i !== index));
+  };
+
+  const updatePerfil = async () => {
+    try {
+      if (email.trim() && email === userData.Email) {
+        // Atualiza o documento existente se o email não mudou
+        await updateDoc(doc(db, "usuarios", userData.Email), {
+          Altura: altura,
+          Peso: peso,
+          Genero: sexo,
+          Doenca: listaDoencas,
+          Restricoes: listaAlimentosAlergicos,
+        });
+        alert("Dados atualizados com sucesso!");
+      } else {
+        // Apaga o documento do email antigo e cria um novo se o email foi alterado
+        await deleteDoc(doc(db, "usuarios", userData.Email));
+        await setDoc(doc(db, "usuarios", email), saveUserData);
+        alert("Email atualizado e dados salvos com sucesso!");
+      }
+
+      navigation.navigate("Home", {
+        userData: saveUserData,
+      });
+    } catch (e) {
+      console.error("Error updating document: ", e);
+      alert("Erro ao salvar os dados, tente novamente.");
+    }
   };
 
   return (
@@ -112,7 +145,7 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder={userData.Altura}
+                placeholder={"Ex: " + userData.Altura}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={altura}
@@ -131,7 +164,7 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder={userData.Peso}
+                placeholder={"Ex: " + userData.Peso}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={peso}
@@ -150,7 +183,7 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder={userData.Genero}
+                placeholder={"Ex: " + userData.Genero}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={sexo}
@@ -230,7 +263,13 @@ export default function MinhasInformacoes() {
                 />
                 <TouchableOpacity
                   style={styles.btEnviar}
-                  onPress={adicionarAlimentoAlergico}
+                  onPress={() =>
+                    adicionarItem(
+                      novoAlimentoAlergico,
+                      setListaAlimentosAlergicos,
+                      setNovoAlimentoAlergico
+                    )
+                  }
                 >
                   <Image
                     source={require("../../../assets/botaoEnviar.png")}
@@ -247,11 +286,13 @@ export default function MinhasInformacoes() {
               >
                 {/* Renderizar cada alimento alérgico como um item separado */}
                 <View style={styles.conteiner_ScrollView}>
-                  {alimentosAlergicos.map((alimento) => (
-                    <View style={styles.item_id1} key={alimento.id}>
-                      <Text style={styles.txt_item_id1}>{alimento.nome}</Text>
+                  {listaAlimentosAlergicos.map((item, index) => (
+                    <View style={styles.item_id1} key={index}>
+                      <Text style={styles.txt_item_id1}>{item}</Text>
                       <TouchableOpacity
-                        onPress={() => removerAlimentoAlergico(alimento.id)}
+                        onPress={() =>
+                          removerItem(index, setListaAlimentosAlergicos)
+                        }
                       >
                         <Image
                           source={require("../../../assets/BtCancelar.png")}
@@ -263,6 +304,19 @@ export default function MinhasInformacoes() {
                 </View>
               </ScrollView>
             </View>
+          </View>
+          <View style={styles.conteiner_btSalvar}>
+            <TouchableOpacity
+              style={styles.btSalvar}
+              onPress={() => updatePerfil()}
+            >
+              <ImageBackground
+                source={require("../../../assets/btSalvar.png")}
+                style={styles.btSalvar}
+              >
+                <Text style={styles.txtBtSalvar}>Salvar Alterações</Text>
+              </ImageBackground>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
