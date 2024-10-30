@@ -90,7 +90,9 @@ export default function Home() {
           </Text>
           <TouchableOpacity
             style={styles.bt_gerar_dieta}
-            onPress={() => navigation.navigate("GerarDieta")}
+            onPress={() =>
+              navigation.navigate("GerarDieta", { userData: userData })
+            }
           >
             <Text style={styles.txt_bt_gerarDieta}>Gerar Dieta</Text>
           </TouchableOpacity>

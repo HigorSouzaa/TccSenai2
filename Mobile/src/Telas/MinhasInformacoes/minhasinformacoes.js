@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../Config/Firebase/fb";
 
 export default function MinhasInformacoes() {
   const navigation = useNavigation();
@@ -60,25 +62,35 @@ export default function MinhasInformacoes() {
   };
 
   const updatePerfil = async () => {
-    try {
-      if (email.trim() && email === userData.Email) {
-        // Atualiza o documento existente se o email não mudou
-        await updateDoc(doc(db, "usuarios", userData.Email), {
-          Altura: altura,
-          Peso: peso,
-          Genero: sexo,
-          Doenca: listaDoencas,
-          Restricoes: listaAlimentosAlergicos,
-        });
-        alert("Dados atualizados com sucesso!");
-      } else {
-        // Apaga o documento do email antigo e cria um novo se o email foi alterado
-        await deleteDoc(doc(db, "usuarios", userData.Email));
-        await setDoc(doc(db, "usuarios", email), saveUserData);
-        alert("Email atualizado e dados salvos com sucesso!");
-      }
+    const saveUserData = {
+      Nome: userData.Nome,
+      Email: userData.Email,
+      Pais: userData.Pais,
+      Telefone: userData.Telefone,
+      DataAniversario: userData.DataAniversario,
+      Altura: altura || userData.Altura,
+      Peso: peso || userData.Peso,
+      Meta: userData.Meta,
+      Genero: sexo || userData.Genero,
+      Idade: userData.Idade,
+      NivelAtividade: userData.NivelAtividade,
+      Restricoes: listaAlimentosAlergicos || userData.Restricoes,
+      Senha: userData.Senha,
+      TaxaBasal: userData.TaxaBasal,
+      Doenca: listaDoencas || userData.Doenca,
+    };
 
-      navigation.navigate("Home", {
+    try {
+      await updateDoc(doc(db, "usuarios", userData.Email), {
+        Altura: saveUserData.Altura,
+        Peso: saveUserData.Peso,
+        Genero: saveUserData.Genero,
+        Doenca: saveUserData.Doenca,
+        Restricoes: saveUserData.Restricoes,
+      });
+      alert("Dados atualizados com sucesso!");
+
+      navigation.navigate("Perfil", {
         userData: saveUserData,
       });
     } catch (e) {
@@ -145,7 +157,7 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder={"Ex: " + userData.Altura}
+                placeholder={userData.Altura}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={altura}
@@ -164,7 +176,7 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder={"Ex: " + userData.Peso}
+                placeholder={userData.Peso}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={peso}
@@ -183,7 +195,7 @@ export default function MinhasInformacoes() {
               <TextInput
                 style={styles.input}
                 fontSize={24}
-                placeholder={"Ex: " + userData.Genero}
+                placeholder={userData.Genero}
                 placeholderTextColor={"#E6E3F6"}
                 fontFamily={"BreeSerif_400Regular"}
                 value={sexo}
