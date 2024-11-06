@@ -9,7 +9,7 @@ import GerarDieta from "./src/Telas/GerarDieta/gerarDieta";
 import Perfil from "./src/Telas/Perfil/perfil";
 import EditarPerfil from "./src/Telas/EditarPerfil/editarperfil";
 import MinhasInformacoes from "./src/Telas/MinhasInformacoes/minhasinformacoes";
-import DietaDiaria from "./src/Telas/DietaDieta/dietadiaria";
+import DietaDiaria from "./src/Telas/DietaDiaria/dietadiaria";
 import RecuperarSenha from "./src/Telas/RecuperarSenha/recuperarsenha";
 import MudarSenha from "./src/Telas/MudarSenha/mudarsenha";
 import InsiraEmail from "./src/Telas/InsiraEmail/insiraEmail";
@@ -22,7 +22,7 @@ function MyStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="DietaDiaria"
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: "#E6E3F5" },

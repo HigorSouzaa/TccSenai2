@@ -9,11 +9,14 @@ import {
   TextInput,
   Modal,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 
 export default function GerarDieta() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { userData } = route.params;
+
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
@@ -67,49 +70,99 @@ export default function GerarDieta() {
       ...listaOutros,
     ].join(", ");
 
-    const prompt = `
-      Quero que você atue como um assistente de nutrição para ajudar a pessoa a calcular sua taxa metabólica basal (TMB) e montar uma dieta personalizada com base nos alimentos que ela tem em casa, considerando suas metas de saúde e restrições alimentares.
-  
-      Etapas a seguir:
-      
-      1. Informações da pessoa:
-      Idade: 18
-      Peso: 65
-      Altura: 1.75
-      Sexo: Masculino
-      Nível de atividade física: Ativo
-      Meta: ganhar massa
-      Alergias alimentares: Glúten
-      Condições de saúde ou doenças: Diabetes
-      
-      2. Cálculo da TMB:
-      Utilize as informações acima para calcular a taxa metabólica basal (TMB) utilizando a equação de Mifflin-St Jeor.
-      
-      3. Análise de alimentos disponíveis:
-      A pessoa informou que tem os seguintes alimentos disponíveis em casa: ${TodasAsListas}.
-      Verifique a compatibilidade dos alimentos disponíveis com as alergias e condições de saúde informadas.
-      Exclua os alimentos que podem causar reações alérgicas ou interferir nas condições de saúde, e forneça sugestões de substituições se necessário.
-      
-      4. Geração da dieta:
-      Com base na meta de perder peso, crie uma sugestão de refeições para um dia inteiro que atenda ao total de calorias diárias necessárias, com a seguinte distribuição de macronutrientes: 40% proteína, 40% carboidrato, 20% gordura.
-      Divida a alimentação em 6 refeições.
-      Monte sugestões de refeições utilizando os alimentos compatíveis, considerando as alergias e condições de saúde mencionadas, Leve em consideração que seram humanos e precisão como porções minima de comidas para satisfação. Sempre especifique as porções de cada alimento.
-      
+    const prompt = `Quero que você atue como um assistente de nutrição para ajudar a pessoa a montar uma dieta personalizada com base nos alimentos que ela tem em casa, considerando suas metas de saúde, restrições alimentares e as quantidades limitadas de alimentos disponíveis.
 
-      5. Exemplo de saída: (Deixar a saida somente a Dieta do Dia e as observações nada mais, quero só as informoçoes das dietas, 
-      lembre tambem de dar a quantidade de cada em gramas e mostrar quantidades de calorias por refeição, separe tambem em linhas as refeiçoes para ficar uma em baixo da outra, e tentando sempre bater a meta de calorias diarias da Taxa Metabolica Basal)
-      
-      Dieta do Dia:
-      1. Café da manhã: {exemplo de refeição}
-      2. Lanche da manhã: {exemplo de refeição}
-      3. Almoço: {exemplo de refeição}
-      4. Lanche da tarde: {exemplo de refeição}
-      5. Jantar: {exemplo de refeição}
-      6. Ceia: {exemplo de refeição}
-
-      Observação: {inserir observações relevantes como variações ou cuidados extras, tambem nao falar sobre nutricionista ou profissional da saude.}"
+    Etapas a seguir:
+    
+    1. Informações da pessoa:
+       Idade: ${userData.Nome}
+       Peso: ${userData.Peso}
+       Altura: ${userData.Altura}
+       Sexo: ${userData.Genero}
+       Nível de atividade física: ${userData.NivelAtividade}
+       Meta: ${userData.Meta}
+       Restrições  alimentares: ${userData.Restricoes}
+       Condições de saúde ou doenças: ${userData.Doenca}
+    
+    2. Análise de alimentos disponíveis:
+       A pessoa informou que tem os seguintes alimentos disponíveis em casa: ${TodasAsListas}.
+       Verifique a compatibilidade dos alimentos disponíveis com as alergias e condições de saúde informadas.
+       Exclua os alimentos que podem causar reações alérgicas ou interferir nas condições de saúde e forneça sugestões de substituições se necessário.
+       
+    3. Geração da dieta:
+       Com base na meta de {inserir meta}, crie uma sugestão de refeições para um dia inteiro que atenda ao total de calorias diárias necessárias, com a seguinte distribuição de macronutrientes: {inserir distribuição de macros}.
+       Divida a alimentação em 6 refeições.
+       Monte sugestões de refeições utilizando os alimentos compatíveis e disponíveis, considerando as alergias e condições de saúde mencionadas. Especifique as porções de cada alimento em gramas e as calorias por refeição, visando alcançar a meta de calorias diárias da TMB. Tente tornar a dieta equilibrada e realista, evitando incluir alimentos no café da manhã que não sejam comuns para essa refeição, como arroz, a menos que seja necessário para cumprir os macros.
+    
+    4. Sugestões de ajustes e substituições:
+       Caso o usuário tenha poucos alimentos disponíveis, avise sobre a quantidade limitada e sugira adicionar mais opções, como vegetais, fontes alternativas de proteína, ou carboidratos complexos. Se algum alimento necessário não estiver disponível, forneça sugestões de substituições com base em alimentos semelhantes ou complementares, sempre levando em consideração as restrições alimentares e condições de saúde.
+    
+    5. Formato de saída:
+       Retorne a dieta no seguinte formato JSON, apenas com as informações solicitadas, informe somente a dieta ou seja o passo 3 ignore o resto use só para fazer a dieta, e também sem mensagens explicativas. Além disso, forneça o total de macronutrientes (proteínas, carboidratos e gorduras) e calorias para o dia inteiro, após as refeições.
+    
+       Exemplo de saída:
+       {
+         "dietaDoDia": [
+           {
+             "refeicao": "Café da manhã",
+             "alimentos": [
+               {"nome": "Alimento 1", "quantidade_g": 100, "calorias": 200},
+               {"nome": "Alimento 2", "quantidade_g": 50, "calorias": 100}
+             ],
+             "total_calorias": 300
+           },
+           {
+             "refeicao": "Lanche da manhã",
+             "alimentos": [
+               {"nome": "Alimento 3", "quantidade_g": 75, "calorias": 150},
+               {"nome": "Alimento 4", "quantidade_g": 30, "calorias": 70}
+             ],
+             "total_calorias": 220
+           },
+           {
+             "refeicao": "Almoço",
+             "alimentos": [
+               {"nome": "Alimento 5", "quantidade_g": 150, "calorias": 400},
+               {"nome": "Alimento 6", "quantidade_g": 80, "calorias": 120}
+             ],
+             "total_calorias": 520
+           },
+           {
+             "refeicao": "Lanche da tarde",
+             "alimentos": [
+               {"nome": "Alimento 7", "quantidade_g": 60, "calorias": 180},
+               {"nome": "Alimento 8", "quantidade_g": 40, "calorias": 60}
+             ],
+             "total_calorias": 240
+           },
+           {
+             "refeicao": "Jantar",
+             "alimentos": [
+               {"nome": "Alimento 9", "quantidade_g": 200, "calorias": 500},
+               {"nome": "Alimento 10", "quantidade_g": 75, "calorias": 100}
+             ],
+             "total_calorias": 600
+           },
+           {
+             "refeicao": "Ceia",
+             "alimentos": [
+               {"nome": "Alimento 11", "quantidade_g": 50, "calorias": 100},
+               {"nome": "Alimento 12", "quantidade_g": 30, "calorias": 50}
+             ],
+             "total_calorias": 150
+           }
+         ],
+         "macronutrientesTotais": {
+           "proteinas": 150,
+           "carboidratos": 200,
+           "gorduras": 70,
+           "caloriasTotais": 2000
+         },
+         "observacao": "Você tem uma quantidade limitada de alimentos disponíveis. Considere adicionar mais fontes de proteínas, vegetais ou carboidratos complexos para equilibrar melhor sua dieta. Caso tenha outros alimentos que não foram mencionados, podemos adaptá-los à dieta."
+       }
+    
     `;
-
+  
     try {
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -130,8 +183,6 @@ export default function GerarDieta() {
 
       const data = await response.json();
       const resultadoDieta = data.choices[0].message.content.trim();
-      setResultadoDieta(resultadoDieta); // Exibir no modal
-      setModalVisible(true); // Abrir o modal com o resultado
     } catch (error) {
       console.error("Erro ao gerar dieta:", error);
     }
@@ -454,26 +505,6 @@ export default function GerarDieta() {
         <TouchableOpacity style={styles.gerarButton} onPress={gerarDieta}>
           <Text style={styles.gerarButtonText}>GERAR</Text>
         </TouchableOpacity>
-
-        {/* Modal para exibir o resultado */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Resultado da Dieta</Text>
-              <ScrollView>
-                <Text>{resultadoDieta}</Text>
-              </ScrollView>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <Text>Fechar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
       </View>
     </ScrollView>
   );
