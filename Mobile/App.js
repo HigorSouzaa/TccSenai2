@@ -9,12 +9,13 @@ import GerarDieta from "./src/Telas/GerarDieta/gerarDieta";
 import Perfil from "./src/Telas/Perfil/perfil";
 import EditarPerfil from "./src/Telas/EditarPerfil/editarperfil";
 import MinhasInformacoes from "./src/Telas/MinhasInformacoes/minhasinformacoes";
-import DietaDiaria from "./src/Telas/DietaDiaria/dietadiaria";
+import DietaDiaria from "./src/Telas/DietaDiaria/dietaDiaria";
 import RecuperarSenha from "./src/Telas/RecuperarSenha/recuperarsenha";
 import MudarSenha from "./src/Telas/MudarSenha/mudarsenha";
 import InsiraEmail from "./src/Telas/InsiraEmail/insiraEmail";
 import Cadastro2 from "./src/Telas/Cadastro2/cadastro2";
 import Cadastro3 from "./src/Telas/Cadastro3/cadastro3";
+import DietaGerada from "./src/Telas/DietaGerada/dietaGerada";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,7 @@ function MyStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="DietaDiaria"
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: "#E6E3F5" },
@@ -38,6 +39,7 @@ function MyStack() {
         <Stack.Screen name="EditarPerfil" component={EditarPerfil} />
         <Stack.Screen name="MinhasInformacoes" component={MinhasInformacoes} />
         <Stack.Screen name="DietaDiaria" component={DietaDiaria} />
+        <Stack.Screen name="DietaGerada" component={DietaGerada} />
         <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} />
         <Stack.Screen name="MudarSenha" component={MudarSenha} />
         <Stack.Screen name="InsiraEmail" component={InsiraEmail} />

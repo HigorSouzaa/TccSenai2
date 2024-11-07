@@ -21,9 +21,6 @@ export default function GerarDieta() {
     BreeSerif_400Regular,
   });
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [resultadoDieta, setResultadoDieta] = useState("");
-
   // Chave API Key do Projeto
   const OPENAI_API_KEY =
     "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";
@@ -75,7 +72,7 @@ export default function GerarDieta() {
     Etapas a seguir:
     
     1. Informações da pessoa:
-       Idade: ${userData.Nome}
+       Idade: ${userData.Idade}
        Peso: ${userData.Peso}
        Altura: ${userData.Altura}
        Sexo: ${userData.Genero}
@@ -87,7 +84,7 @@ export default function GerarDieta() {
     2. Análise de alimentos disponíveis:
        A pessoa informou que tem os seguintes alimentos disponíveis em casa: ${TodasAsListas}.
        Verifique a compatibilidade dos alimentos disponíveis com as alergias e condições de saúde informadas.
-       Exclua os alimentos que podem causar reações alérgicas ou interferir nas condições de saúde e forneça sugestões de substituições se necessário.
+       Exclua os alimentos que podem causar reações alérgicas ou interferir nas condições de saúde e forneça sugestões de substituições se necessário, fora isso nao acresente outros alimentos fora da lista.
        
     3. Geração da dieta:
        Com base na meta de {inserir meta}, crie uma sugestão de refeições para um dia inteiro que atenda ao total de calorias diárias necessárias, com a seguinte distribuição de macronutrientes: {inserir distribuição de macros}.
@@ -164,25 +161,36 @@ export default function GerarDieta() {
     `;
   
     try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 1500,
-            temperature: 0,
-          }),
-        }
-      );
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: prompt }],
+          max_tokens: 1500,
+          temperature: 0,
+        }),
+      });
 
       const data = await response.json();
-      const resultadoDieta = data.choices[0].message.content.trim();
+
+      if (data.choices && data.choices[0].message.content) {
+        // Tentando converter para JSON, caso o conteúdo seja JSON válido
+        let dietaGerada;
+        try {
+          dietaGerada = JSON.parse(data.choices[0].message.content);
+          navigation.navigate("DietaGerada", {userData: userData, dataResposta: dietaGerada})
+          console.log(prompt)
+        } catch (parseError) {
+          // Se não for JSON, exibe o conteúdo como texto
+          console.log("Resposta em formato de texto:", data.choices[0].message.content);
+        }
+      } else {
+        console.error("Resposta inesperada da API:", data);
+      }
     } catch (error) {
       console.error("Erro ao gerar dieta:", error);
     }
