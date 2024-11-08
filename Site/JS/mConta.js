@@ -94,4 +94,19 @@ saveCP.addEventListener('click', function(){
 });
 
 
+document.getElementById('sair').addEventListener('click', function() {
+    // Faça o logout (remover token, etc.)
+    window.location.replace('login.html'); // ou a URL da sua página de login
+});
+
+// Ao sair
+sessionStorage.setItem('loggedOut', 'true');
+
+// Na página que deve ser bloqueada
+if (sessionStorage.getItem('loggedOut')) {
+    window.location.replace('login.html');
+}
+
+
+
 

@@ -139,7 +139,7 @@ html,body {
    .cont{
 
 display: grid;
-grid-template-columns: repeat(2, 1fr); /* 3 colunas de largura igual */
+grid-template-columns: repeat(2, 1fr);
 
    }
   
@@ -180,10 +180,45 @@ height: 200px;
         
         font-family: OCR A Std, monospace;
      }
+
+     .image-button{
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 364px;
+      left: 630px;
+      padding: 7px;
+      
+  
+     border: none;
+     border-radius: 50%;
+
+     background-color: #E6E3F6;
+    
+     }
+
+     .imgDireita{
+      width: 25px;
+      background-image: url('../img/Ellipse\ 59.png');
+
+      background-repeat: no-repeat; /* Impede a repetição da imagem */
+     background-size: cover; /* Faz a imagem cobrir todo o contêiner */
+     transition: background-color 0.8s ease, transform 0.1s ease; /* Transições suaves */
+     }
+
+    .image-button:active{
+
+      transform: scale(0.80); /* Efeito de "pressionar" */
+
+    }
+      
+
+     
+
      .bloco1{
 
       display: grid;
-      grid-template-columns: repeat(1, 1fr); /* 3 colunas de largura igual */
+      grid-template-columns: repeat(1, 1fr); 
       
       grid-column: 1;
 
@@ -216,6 +251,12 @@ height: 200px;
             left: 10px;
         }
 
+        #newRefeicao{
+
+          height: 40px;
+
+        }
+
         #newRefeicaoB{
 
           position: relative;
@@ -234,70 +275,86 @@ height: 200px;
 
         }
 
-        label[for="restricao"] {
+
+        /*botão sim e não*/
+        .opcoes {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr); 
+          grid-template-rows:repeat(2, 1fr); ;
+          
+
+          
+      }
+      
+      .opcoes input[type="radio"] {
+          margin-right: 10px; /* Espaço à direita dos botões de rádio */
+      }
+      
+      label[for="restricao"] {
+          margin-top: 20px; /* Espaço acima do label de restrição */
+          display: block; /* Faz com que o label ocupe toda a largura */
 
           position: relative;
-          top: 30px;
+          top: 40px;
           left: 20px;
           color: #9f9db0;
           font-family: OCR A Std, monospace;
           font-size: 20px;
 
-        }
+          
+      }
 
-        /*botão sim e não*/
+      
+      label[for="sim"],
+      label[for="nao"] {
 
-        button#sim{
-
-position: relative;
-top: 200px;
-left: 50px;
-
-background-color: white;
-width: 40px;
-height: 40px;
-border-radius: 50%; 
-border: none;
-box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        
-        button#sim p{
-
-          margin: 0;
-          position: relative;
-          left: 39px;
-          font-size: 20px;
+          font-size: 20px; /* Tamanho da fonte para os labels de sim e não */
           color: #9f9db0;
           font-family: OCR A Std, monospace;
-
-        }
-
-        button#nao{
-
-          position: relative;
-          top: 230px;
-          left: 190px;
           
-          background-color: white;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%; 
-          border: none;
-          box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
-                  }
-          
+      }
+
+      label[for="sim"]{
+
+        position: relative;
+        top: 33px;
+        left: 70px;
+        grid-column: 1;
+        grid-row: 2;
+        width: 50px;
+
+      }
+
+      input#sim {
+
+        position: relative;
+        top: 60px;
+        left: 10px;
+        width: 50px;
+        
+
+      }
+
+      label[for="nao"]{
+
+        position: relative;
+        top: 33px;
+        left: 220px;
+        grid-column: 1;
+        grid-row: 2;
+        width: 50px;
+
+      }
+      
+      input#nao{
+
+        position: relative;
+        top: -5px;
+        left: 160px;
+        width: 50px;
+
+      }
                   
-                  button#nao p{
-          
-                    margin: 0;
-                    position: relative;
-                    left: 41px;
-                    font-size: 20px;
-                    color: #9f9db0;
-                    font-family: OCR A Std, monospace;
-          
-                  }
   
    /*////////////////Bloco 1 fim //////////////////////*/
 
@@ -316,13 +373,46 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
     
     font-family: OCR A Std, monospace;
  }
+
+
+ .image-buttonB{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 365px;
+  left: 1350px;
+  padding: 7px;
+  
+
+ border: none;
+ border-radius: 50%;
+
+ background-color: #E6E3F6;
+
+ }
+
+ .imgDireitaB{
+  width: 25px;
+  background-image: url('../img/Ellipse\ 59.png');
+
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+ background-size: cover; /* Faz a imagem cobrir todo o contêiner */
+ transition: background-color 0.8s ease, transform 0.1s ease; /* Transições suaves */
+ }
+
+.image-buttonB:active{
+
+  transform: scale(0.80); /* Efeito de "pressionar" */
+
+}
  .bloco2{
 
   display: grid;
-  grid-template-columns: repeat(1, 1fr); /* 3 colunas de largura igual */
+  grid-template-columns: repeat(1, 1fr); /* 1 coluna */
   grid-column: 2;
+  gap: 20px;
 
- 
+  height: 300px;
   
 
  }
@@ -354,6 +444,12 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
         left: 10px;
     }
 
+    #newRestricao{
+
+      height: 40px;
+
+    }
+
     #newRestricaoB{
 
       position: relative;
@@ -363,7 +459,7 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
   background-color: white;
   border-radius: 10px;
   border: none;
-  height: 330px;
+  height: 200px;
   width: 450px;
   color: #9f9db0;
   font-family: OCR A Std, monospace;
@@ -372,6 +468,42 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
 
     }
 
+    button#gerar{
+
+      position: relative;
+      top: 20px;
+
+color:rgb(140, 92, 212) ;
+border: 1px solid rgb(140, 92, 212);
+border-radius: 50px;
+background-color: white;
+font-size: 40px;
+
+width: 400px;
+height: 90px;
+transition: background-color 0.8s ease, transform 0.1s ease; /* Transições suaves */
+    }
+
+    button#gerar:hover{
+
+      background-color: #88a1e0; /* Cor ao passar o mouse */
+
+    }
+
+    button#gerar:active{
+
+      transform: scale(0.95); /* Efeito de "pressionar" */
+
+    }
+
+    #mensagem {
+      
+    font-size: 30px;
+    position: relative;
+    left: 29px;
+    top: 10px;
+    }
+    
 
 /*////////////////Bloco 2 fim //////////////////////*/
   
@@ -409,7 +541,7 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
    padding: 10px;
    margin: 10px;
    margin-top: 10px;
-   height: 900px;
+   height: 1500px;
   width:400px ;
    background-color: #F2F0FA;
   }
@@ -524,6 +656,19 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
    /*//////////////////Fim do menu//////////////*/
   
    /*///////////// Conteúdo //////////////*/
+
+   .cont{
+
+    display: flex;
+    flex-direction: column;
+
+       }
+
+       .parteA{
+
+        height: 160px;
+        
+          }
   
    .cont h1{
     position: relative;
@@ -537,7 +682,108 @@ box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
     font-family: OCR A Std, monospace;
     
      }
+
+      /*////////////////////////Bloco 1///////////////////*/
+
+      label[for="newRefeicao"]{
+
+          
+          font-size: 20px;
+          
+       }
+
+       .image-button{
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 314px;
+        left: 370px;
+        padding: 7px;
+        
     
+       border: none;
+       border-radius: 50%;
+  
+       background-color: #E6E3F6;
+      
+       }
+  
+      
+      
+
+       .bloco1 input{
+
+   
+
+        position: relative;
+        top: 20px;
+        left: 20px;
+  
+          width: 360px;
+         
+  
+          }
+
+
+          #newRefeicaoB{
+
+        width: 360px;
+        
+  
+          }
+        
+          /*fim do bloco1*/
+
+/*////////////////////////Bloco 2///////////////////*/
+
+.bloco2{
+
+  position: relative;
+  top: 50px;
+  left: 20px;
+
+}
+
+label[for="newRestricao"]{
+
+          
+  font-size: 25px;
+  
+}
+
+.image-buttonB{
+
+  position: absolute;
+  top: 50px;
+  left: 310px;
+
+ }
+
+ .bloco2 input{
+
+  width: 360px;
+
+ }
+
+  #newRestricaoB{
+
+    width: 360px;
+
+  }
+
+  button#gerar{
+
+    position: relative;
+    top: 20px;
+    left: 30px;
+    font-size: 40px;
+
+    width: 300px;
+
+  }
+
+/*fim do bloco2*/
+
   /* fim da Parte que deixa responsivo*/
   
   

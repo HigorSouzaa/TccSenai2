@@ -664,8 +664,8 @@ button#saveEmail{
      padding: 10px;
      margin: 10px;
      margin-top: 10px;
-     height: 1600px;
-    width:400px ;
+     height: 1640px;
+    width:400px;
      background-color: #F2F0FA;
     }
     
@@ -751,19 +751,40 @@ button#saveEmail{
     background-color: white;
     position: relative;
     top: 0px;
-    left: 10px;
+    left: 0px;
 }     
+
+hr{
+  position: relative;
+  top: 100px;
+          
+  border: 1px transparent #908d9c; /* Cor e espessura da linha */
+  width: 360px; /* Faz o <hr> ocupar toda a largura disponível */
+          
+      
+      }
 
 .bloco1{
 
   position: relative;
   top: 100px;
-  left:30px ;
+  left:20px ;
 
-  height: 620px;
+  height: 640px;
+  width: 360px;
 
 
 
+}
+
+.bloco1 hr {
+
+    position: relative;
+    top: 30px;
+            
+    border: 1px transparent #908d9c; /* Cor e espessura da linha */
+    width: 310px; /* Faz o <hr> ocupar toda a largura disponível */
+            
 }
 
 .conteudo{
@@ -774,24 +795,34 @@ button#saveEmail{
 
 }
 
+.nome{
+  position: relative;
+  left: 20px;
+  width: 320px;
+
+}
+
 .sexo{
 
   position: relative;
-  left: 30px;
+  left: 20px;
+  width: 320px;
 
 }
 
 .dataN{
 
   position: relative;
-  left: 30px;
+  left: 20px;
+  width: 320px;
 
 }
 
 .email{
 
   position: relative;
-  left: 30px;
+  left: 20px;
+  width: 320px;
 
 }
 

@@ -269,9 +269,9 @@ html,body {
 
   background: none;
   border: none;
-  position: relative;
-  top: 0px;
-  left: 650px;
+  position: absolute;
+  top: 443px;
+  left: 570px;
 
 }
 
@@ -280,6 +280,154 @@ html,body {
 width: 50px;
 
 }
+
+#mensagem {
+
+  position: absolute; /* Posiciona a mensagem em relação ao form */
+  top: 500px; /* Ajuste a distância do topo do formulário */
+  left: 270px; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Centraliza corretamente */
+  z-index: 1000; /* Para garantir que fique acima de outros elementos */
+ 
+  padding: 10px; /* Espaçamento interno */
+ 
+  border-radius: 5px; /* Bordas arredondadas opcional */
+  
+font-size: 20px;
+
+}
+
+
+  /*//////////////////////////// Parte que deixa responsivo/////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////*/
+  
+  
+  @media (max-width: 768px) {
+    /* Estilos para telas menores que 768px de largura */
+  
+    html,body {
+      font-family: OCR A Std, monospace;
+      margin: 0;
+      padding: 0;
+      height: auto;
+     
+      width: auto;
+      margin: 20px;
+    
+      
+    }
+    
+    body{
+    
+      border: 0px solid black;
+      border-radius: 60px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     padding: 10px;
+     margin: 10px;
+     margin-top: 10px;
+     height: 1400px;
+    width:400px ;
+     background-color: #F2F0FA;
+    }
+    
+    html{
+      margin-bottom: 100px;
+      background-color: #E6E3F6;
+    
+    }
+
+    .list-menu a {
+      width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none; /* Remove o sublinhado do link */
+      color: #B5B2C6;
+      font-family: OCR A Std, monospace;
+      font-size: 20px;
+      
+    }
+
+    .content h1 {
+      position: relative; /* Ou absolute, fixed, etc. */
+      top: 2px; /* Ajusta a posição vertical */
+      left: 25px; /* Ajusta a posição horizontal */
+      color: #B5B2C6;
+      font-family: OCR A Std, monospace; /*font do H1*/
+  font-size: 15px;
+  width: 100%;
+    }
+
+     /*Conteúdo*/
+
+     .container-img img{
+
+      height: 300px;
+      width: 300px;
+      position: absolute;
+      top: 150px;
+      left: 70px;
+
+     }
+
+    .parteA {
+
+      position: relative;
+      left: 0px;
+      
+    }
+
+    form{
+
+      position: relative;
+      top: 400px;
+      left: 30px;
+
+    }
+
+    #form-cadastro{
+      height: 500px;
+      width:240px;
+
+    }
+
+    .input-group select {
+    
+    
+      width: 250px;
+    }
+
+    .imagemPross{
+
+      background: none;
+      border: none;
+      position: absolute;
+      top: 500px;
+      left: 250px;
+    
+    }
+
+    #mensagem {
+
+      position: absolute; /* Posiciona a mensagem em relação ao form */
+      top: 500px; /* Ajuste a distância do topo do formulário */
+      left: 140px; /* Centraliza horizontalmente */
+      transform: translateX(-50%); /* Centraliza corretamente */
+      z-index: 1000; /* Para garantir que fique acima de outros elementos */
+     
+      padding: 10px; /* Espaçamento interno */
+     
+      border-radius: 5px; /* Bordas arredondadas opcional */
+      
+    font-size: 15px;
+    
+    }
+    
+
+  }
 
 
 

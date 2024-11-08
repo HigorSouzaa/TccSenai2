@@ -1,7 +1,18 @@
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyAN-a9a4u9JSuG1PtfauZ5fSu6dlNcApgY",
+    authDomain: "iahealthfit-52d82.firebaseapp.com",
+    projectId: "iahealthfit-52d82",
+    storageBucket: "iahealthfit-52d82.appspot.com",
+    messagingSenderId: "231967722388",
+    appId: "1:231967722388:web:cee934ed4395fdb96d9d81"
+};
 
-/*ico pessoa*/
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-
+// Função para alternar o menu do ícone da pessoa
 function toggleMenu(event) {
     event.preventDefault(); // Evita que o link redirecione a página
     const icoPessoa = document.querySelector('.ico-pessoa');
@@ -13,7 +24,121 @@ document.addEventListener('click', function(event) {
     const icoPessoa = document.querySelector('.ico-pessoa');
     if (!icoPessoa.contains(event.target)) {
         icoPessoa.classList.remove('show-menu');
+
     }
 });
 
-/*//////////fim ico pessoa/////////////*/
+// Recupera o nome do usuário armazenado no localStorage
+const nomeUsuario = localStorage.getItem('usuarioNome');
+
+// Função para buscar o nome do usuário no Firestore
+async function buscarUsuarioNoFirestore(nome) {
+    try {
+        const usuarioRef = db.collection('usuarios').doc(nome);
+        const doc = await usuarioRef.get();
+        
+        if (doc.exists) {
+            console.log('Dados do usuário:', doc.data());
+            return doc.data(); // Retorna os dados do usuário
+        } else {
+            console.log('Usuário não encontrado!');
+            return null;
+        }
+    } catch (error) {
+        console.error('Erro ao buscar dados do usuário: ', error);
+        return null;
+    }
+}
+
+// Função para exibir mensagem de boas-vindas com nome do usuário
+async function exibirBoasVindas() {
+    if (nomeUsuario) {
+        // Busca os dados do usuário no Firestore
+        const usuarioData = await buscarUsuarioNoFirestore(nomeUsuario);
+        
+        if (usuarioData) {
+            const mensagemDiv = document.getElementById('mensagem');
+            mensagemDiv.textContent = `Bem-vindo, ${usuarioData.nome || nomeUsuario}!`; // Exibe o nome do usuário
+            mensagemDiv.style.color = 'green';
+        }
+    } else {
+        console.error('Nome de usuário não encontrado.');
+        alert('Erro: Nome de usuário não encontrado. Por favor, faça login novamente.');
+    }
+}
+
+// Chama a função para exibir a mensagem de boas-vindas
+exibirBoasVindas();
+
+// Função para validar os campos do formulário
+function validarCampos() {
+    const sexo = document.getElementById('sexo-select').value.trim();
+    const objetivoInput = document.getElementById('objetivo-select').value.trim();
+    const balancaInput = document.getElementById('balanca-select').value.trim();
+    const mensagemDiv = document.getElementById('mensagem');
+
+    if (sexo === "" || objetivoInput === "" || balancaInput === "") {
+        mensagemDiv.textContent = 'Por favor, preencha todos os campos.';
+        mensagemDiv.style.color = 'red';
+        return false;
+    }
+
+    mensagemDiv.textContent = '';
+    return true;
+}
+
+// Captura o botão de prosseguir e adiciona o evento de envio
+document.getElementById('prosseguir-btn').addEventListener('click', async function(event) {
+    event.preventDefault();
+
+    // Verifica se nomeUsuario está definido antes de tentar acessar Firestore
+    if (!nomeUsuario) {
+        console.error('Nome de usuário não encontrado.');
+        alert('Erro: Nome de usuário não está disponível. Faça login novamente.');
+        return;
+    }
+
+    if (validarCampos()) {
+        const sexo = document.getElementById('sexo-select').value.trim();
+        const objetivoInput = document.getElementById('objetivo-select').value.trim();
+        const balancaInput = document.getElementById('balanca-select').value.trim();
+
+        const usuarioData = { sexo, objetivoInput, balancaInput };
+
+        try {
+            // Atualiza os dados do usuário no Firestore usando o nome como identificador
+            await db.collection('usuarios').doc(nomeUsuario).set(usuarioData, { merge: true });
+            alert('Dados atualizados com sucesso!');
+            window.location.href = 'teDieta.html'; // Redireciona após a atualização
+        } catch (error) {
+            console.error('Erro ao atualizar dados: ', error);
+            alert('Erro ao atualizar dados. Tente novamente.');
+        }
+    }
+});
+
+
+/* Função para testar gravação de dados no Firestore
+async function testarGravacaoFirestore() {
+    try {
+        const usuarioTest = {
+            nome: 'Test User',
+            sexo: 'Masculino',
+            objetivoInput: 'Emagrecimento',
+            balancaInput: '70kg'
+        };
+
+        // Tenta gravar dados no Firestore na coleção 'usuarios' com um ID gerado automaticamente
+        const docRef = await db.collection('usuarios').add(usuarioTest);
+        console.log('Documento gravado com sucesso! ID:', docRef.id);  // Exibe o ID do documento
+
+        // Alternativamente, pode-se gravar no Firestore utilizando o nome do usuário como ID:
+        // const docRef = await db.collection('usuarios').doc(nomeUsuario).set(usuarioTest);
+        // console.log('Documento gravado com sucesso com ID:', docRef.id);
+    } catch (error) {
+        console.error('Erro ao gravar no Firestore:', error);
+    }
+}
+
+// Chame a função de teste de gravação para verificar se está funcionando
+testarGravacaoFirestore(); */

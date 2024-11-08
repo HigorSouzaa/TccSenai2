@@ -8,11 +8,15 @@
 
 
     <!-- icon do site-->
-    <link rel="icon" href="../4Sprint/img/LogoHeader.png" type="image/png">
+    <link rel="icon" href="../4Sprint- alterado/img/LogoHeader.png" type="image/png">
 
     <!--ico pessoa-->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Firebase CDN sem uso de módulos -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
 </head>
 <body>
@@ -35,20 +39,15 @@
             </ul>
         </div>
     </header>
-
+   
     <!-- Conteúdo -->
     <div class="cont">
-
         <div class="parteA">
-
-            <form> 
-
+            <form id="form-cadastro"> 
                 <hr>
 
                 <label for="sexo">Sexo:</label>
-
                 <div class="input-group">
-                   
                     <div class="dropdown">
                         <select id="sexo-select" name="sexo-opcoes">
                             <option value="" disabled selected>Selecione...</option>
@@ -60,11 +59,8 @@
                     </div>
                 </div>
 
-
                 <label for="objetivo">Objetivo:</label>
-        
                 <div class="input-group">
-                    
                     <div class="dropdown">
                         <select id="objetivo-select" name="objetivo-opcoes">
                             <option value="" disabled selected>Selecione...</option>
@@ -76,11 +72,8 @@
                     </div>
                 </div>
 
-
                 <label for="balanca">Tem balança:</label>
-
                 <div class="input-group">
-                
                     <div class="dropdown">
                         <select id="balanca-select" name="balanca-opcoes">
                             <option value="" disabled selected>Selecione...</option>
@@ -90,24 +83,24 @@
                         <div class="dropdown-arrow"></div>
                     </div>
                 </div>
-            </form>
 
+                <button class="imagemPross" id="prosseguir-btn">
+                    <img src="img/prosseguir.png" alt="prosseguir">
+                </button>
+        
+                <div id="mensagem"></div>
+
+        
+            </form>
         </div>
 
         <div class="container-img">
-
             <img src="img/telaLogin.png" id="imagemMeio" alt="meio">
-        
         </div>
-
-
-        </div>
-
-        <button class="imagemPross" onclick="location.href = 'pgCadastro2.html'">
-            <img src="img/prosseguir.png" id="imagemPross" alt="prosseguir">
-        </button>
 
     </div>
+    
+    <!-- Fim Conteúdo -->
     
  <!-- Fim Conteúdo -->
 

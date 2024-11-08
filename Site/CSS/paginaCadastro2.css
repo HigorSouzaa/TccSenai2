@@ -219,6 +219,16 @@ html,body {
 
   }
 
+  #mensagem {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    position: absolute; /* Para ajustes de posição */
+    top: 350px;
+    left: 20px;
+}
+
   label{
 
     width: 200px;
@@ -243,7 +253,7 @@ html,body {
 
   
    /*Botão cadastrar*/
-   button[name="Cadastrar"] {
+   button#cadastrar{
     position: absolute;
     top: 280px;
     left: 420px;

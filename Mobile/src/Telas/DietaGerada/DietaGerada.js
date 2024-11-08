@@ -72,7 +72,7 @@ export default function DietaGerada() {
                 source={require("../../../assets/iconVoltar.png")}
                 resizeMode="contain"
               />
-              <Text style={styles.txtVoltar}>Puteiro</Text>
+              <Text style={styles.txtVoltar}>Voltar</Text>
             </TouchableOpacity>
           </View>
 
